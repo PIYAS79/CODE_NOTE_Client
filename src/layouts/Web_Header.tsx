@@ -1,4 +1,6 @@
+import { AccountBookOutlined, AlibabaOutlined, ExclamationCircleFilled, ExclamationCircleOutlined, HomeFilled, HomeOutlined, SettingFilled, SettingOutlined, StarFilled, StarOutlined } from '@ant-design/icons'
 import { Header } from 'antd/es/layout/layout'
+import { NavLink } from 'react-router-dom'
 
 const Web_Header = () => {
     return (
@@ -13,13 +15,11 @@ const Web_Header = () => {
             </div>
             {/* menus */}
             <div className='navLinks'>
-                <p>home</p>
-                <p>home</p>
-                <p>home</p>
-                <p>home</p>
-                <p>home</p>
+                <NavLink to={'/profile'}><p style={{fontSize:'1rem'}}><HomeOutlined/> Home</p></NavLink>
+                <NavLink to={'/setting'}><p style={{fontSize:'1rem'}}><SettingOutlined/> Setting</p></NavLink>
+                <NavLink to={'/star'}><p style={{fontSize:'1rem'}}><StarOutlined/> Star</p></NavLink>
+                <NavLink to={'/about'}><p style={{fontSize:'1rem'}}><ExclamationCircleOutlined /> About</p></NavLink>
             </div>
-
         </Header>
     )
 }

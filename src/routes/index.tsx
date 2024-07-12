@@ -3,6 +3,10 @@ import LoginPage from "../pages/Initial_Pages/LoginPage";
 import SignupPage from "../pages/Initial_Pages/SignupPage";
 import RootPages from "../pages/Initial_Pages/RootPages";
 import Profile_Layout from "../layouts/Profile_Layout";
+import SettingPage from "../pages/Initial_Pages/SettingPage";
+import StarPage from "../pages/Initial_Pages/StarPage";
+import AboutPage from "../pages/Initial_Pages/AboutPage";
+import ProfilePage from "../pages/Initial_Pages/ProfilePage";
 
 
 
@@ -18,11 +22,23 @@ const router = createBrowserRouter([
     },
     {
         path: '/',
-        element: <RootPages />,
+        element: <Profile_Layout/>,
         children: [
             {
                 path: 'profile',
-                element: <Profile_Layout />
+                element: <ProfilePage />
+            },
+            {
+                path:'setting',
+                element:<SettingPage/>
+            },
+            {
+                path:'star',
+                element:<StarPage/>
+            },
+            {
+                path:'about',
+                element:<AboutPage/>
             }
         ]
     }

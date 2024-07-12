@@ -28,8 +28,9 @@
 .web-button-logout {
     background: rgb(196, 0, 0);
 }
+
 .web-button-logout:hover {
-    background: rgb(255, 14, 14)!important;
+    background: rgb(255, 14, 14) !important;
 }
 
 .web-color {
@@ -40,32 +41,118 @@
 
 }
 
+.ant-layout-content {
+    margin: 0px !important;
+
+}
+
 /* responsive this part only */
-.wrapperHeader{
+.wrapperHeader {
     display: flex;
     flex-direction: row-reverse;
 }
-@media (max-width: 600px) {
-    .wrapperHeader {
-        flex-direction: column;
-        background-color: red;
-    }
-    .logoDiv > img{
-        margin-top: -.5rem;
-    }
-}
 
-.logoDiv{
-    gap: 1rem;
+
+.logoDiv {
+    gap: .5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row-reverse;
 }
-.navLinks{
+
+.navLinks-h {
+    display: none;
+}
+
+.navLinks {
     display: flex;
     margin-right: auto;
     justify-content: end;
     align-items: end;
-    gap:1rem
+    gap: 1rem;
+    z-index: 100;
+}
+
+.cardWrapperRecent {
+    /* display: flex;
+    gap: 1.5rem; */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: #EFD9AC; 
+    padding:1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card:hover {
+    background-color: #e6cd9b;
+    cursor: pointer;
+}
+
+.wrapperAllCode {
+    margin-top: 3rem;
+}
+
+@media (max-width: 630px) {
+    .wrapperHeader {
+        flex-direction: column;
+        background-color: red;
+    }
+
+    .logoDiv>img {
+        margin-top: -.9rem;
+    }
+
+    .navLinks {
+        display: none;
+    }
+
+    .navLinks-h {
+        display: flex;
+        justify-content: center;
+        padding: .5rem 0rem;
+        gap: .5rem;
+    }
+
+    .cardWrapperRecent {
+        flex-direction: column;
+    }
+
+    .wrapperAllCode {
+        margin-top: 0rem;
+    }
+
+    .pos {
+        width: 180px !important;
+        height: 180px !important;
+        margin-left: .7rem;
+    }
+    /* .ant-image-mask{
+        min-width:200px!important;
+        max-width: 200px!important;
+    } */
+    .demo-logo-vertical{
+        display: flex!important;
+        justify-content:center!important;
+        align-items: center!important;
+        padding: 0rem!important;
+    }
 }

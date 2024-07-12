@@ -1,21 +1,21 @@
-
-import { GithubOutlined, LinkOutlined } from '@ant-design/icons';
-import { Layout, theme, Image, Button } from 'antd';
+import { ExclamationCircleOutlined, GithubOutlined, HomeOutlined, LinkOutlined, SettingOutlined, StarOutlined } from '@ant-design/icons';
+import { Layout, Image, Button } from 'antd';
 import Web_Header from './Web_Header';
+import ContentSection from './ContentSection';
+import { NavLink, Outlet } from 'react-router-dom';
 
-const { Header, Content, Sider } = Layout;
+const { Sider } = Layout;
 
 
 const Profile_Layout = () => {
 
-    const {
-        token: { colorBgContainer, borderRadiusLG },
-    } = theme.useToken();
+
 
     return (
-        <div>
-            <Layout style={{ height: '100vh' }}>
+        <div style={{height:'100vh'}}>
+            <Layout className='centralLayout' style={{ height: '100vh' }}>
                 <Sider
+                className='siderProfile'
                     width={300}
                     style={{ backgroundColor: '#F4EEE2' }}
                     breakpoint="lg"
@@ -52,34 +52,35 @@ const Profile_Layout = () => {
                         <p style={{ paddingLeft: '2em', color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Most Used Language : <span style={{ fontWeight: '200' }}>C++</span></p>
                     </div>
                     <div style={{ marginTop: '1.5rem' }}>
-                        <a style={{ display:'block',paddingLeft: '2em', color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}><LinkOutlined style={{ color: '#004AAD', marginRight: '5px' }} /> Student Portal </a>
-                        <a style={{ display:'block',paddingLeft: '2em', color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}><GithubOutlined style={{ color: 'gray', marginRight: '5px' }} /> GitHub </a>
+                        <a style={{ display: 'block', paddingLeft: '2em', color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}><LinkOutlined style={{ color: '#004AAD', marginRight: '5px' }} /> Student Portal </a>
+                        <a style={{ display: 'block', paddingLeft: '2em', color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}><GithubOutlined style={{ color: 'gray', marginRight: '5px' }} /> GitHub </a>
                         <a style={{ paddingLeft: '2em', color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px', display: 'flex', alignItems: 'center', }}>
                             <img style={{ width: '22px', marginLeft: '-4px', marginRight: '5px' }} src="https://i.ibb.co/5KjDTkn/32px-Stack-Overflow-icon-svg.png" />Stack Overflow</a>
                     </div>
-                    <div style={{ marginTop: '1.5rem',margin:'1.5rem 2rem' }}>
-                        <Button className='web-button' type="primary" style={{ border: 'none',width:'100%', padding: '0rem 3rem' }}>
+                    <div style={{ marginTop: '1.5rem', margin: '1.5rem 2rem' }}>
+                        <Button className='web-button' type="primary" style={{ border: 'none', width: '100%', padding: '0rem 3rem' }}>
                             Edit Profile
                         </Button>
-                        <Button className='web-button-logout' type="primary" style={{marginTop:'1rem', border: 'none',width:'100%', padding: '0rem 3rem' }}>
+                        <Button className='web-button-logout' type="primary" style={{ marginTop: '1rem', border: 'none', width: '100%', padding: '0rem 3rem' }}>
                             LOGOUT
                         </Button>
                     </div>
                 </Sider>
                 <Layout>
-                    <Web_Header/>
-                    <Content style={{ margin: '24px 16px 0' }}>
-                        <div
-                            style={{
-                                padding: 24,
-                                minHeight: '100%',
-                                background: colorBgContainer,
-                                borderRadius: borderRadiusLG,
-                            }}
-                        >
-                            content
-                        </div>
-                    </Content>
+                    <Web_Header />
+                    {/* 
+                    <HomeFilled />
+                    <SettingFilled /> 
+                    <StarFilled />
+                    <ExclamationCircleFilled />
+                    */}
+                    <div className='navLinks-h'>
+                        <NavLink to={'/profile'}><p style={{ fontSize: '.8rem' }}><HomeOutlined /> Home</p></NavLink>
+                        <NavLink to={'/setting'}><p style={{ fontSize: '.8rem' }}><SettingOutlined /> Setting</p></NavLink>
+                        <NavLink to={'/star'}><p style={{ fontSize: '.8rem' }}><StarOutlined /> Star</p></NavLink>
+                        <NavLink to={'/about'}><p style={{ fontSize: '.8rem' }}><ExclamationCircleOutlined /> About</p></NavLink>
+                    </div>
+                    <Outlet/>
                 </Layout>
             </Layout>
         </div>
