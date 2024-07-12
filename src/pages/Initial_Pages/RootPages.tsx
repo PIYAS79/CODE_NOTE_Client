@@ -1,8 +1,11 @@
+import { Outlet } from "react-router-dom"
 
 
 const RootPages = () => {
   return (
-    <div>RootPages</div>
+    <div>
+      <Outlet />
+    </div>
   )
 }
 

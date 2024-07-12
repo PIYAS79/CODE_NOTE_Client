@@ -13,8 +13,8 @@
 }
 
 .web-button:hover {
-    background: rgb(120, 32, 0)!important;
-    background: linear-gradient(270deg, rgba(120, 32, 0, 1) 25%, rgb(226, 117, 27) 90%)!important;
+    background: rgb(120, 32, 0) !important;
+    background: linear-gradient(270deg, rgba(120, 32, 0, 1) 25%, rgb(226, 117, 27) 90%) !important;
 
 }
 
@@ -25,10 +25,47 @@
     background: linear-gradient(90deg, rgba(120, 32, 0, 1) 25%, rgba(255, 135, 37, 1) 90%);
 }
 
+.web-button-logout {
+    background: rgb(196, 0, 0);
+}
+.web-button-logout:hover {
+    background: rgb(255, 14, 14)!important;
+}
+
 .web-color {
     background: #FF8725;
     background: linear-gradient(to right, #FF8725 25%, #782000 90%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
+}
+
+/* responsive this part only */
+.wrapperHeader{
+    display: flex;
+    flex-direction: row-reverse;
+}
+@media (max-width: 600px) {
+    .wrapperHeader {
+        flex-direction: column;
+        background-color: red;
+    }
+    .logoDiv > img{
+        margin-top: -.5rem;
+    }
+}
+
+.logoDiv{
+    gap: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+.navLinks{
+    display: flex;
+    margin-right: auto;
+    justify-content: end;
+    align-items: end;
+    gap:1rem
 }
