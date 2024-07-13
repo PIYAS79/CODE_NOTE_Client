@@ -1,10 +1,10 @@
-import { AccountBookOutlined, AlibabaOutlined, ExclamationCircleFilled, ExclamationCircleOutlined, HomeFilled, HomeOutlined, SettingFilled, SettingOutlined, StarFilled, StarOutlined } from '@ant-design/icons'
+import { ExclamationCircleOutlined, HomeOutlined, SettingOutlined, StarOutlined } from '@ant-design/icons'
 import { Header } from 'antd/es/layout/layout'
 import { NavLink } from 'react-router-dom'
 
 const Web_Header = () => {
     return (
-        <Header className='wrapperHeader' style={{ padding: '0rem 1rem',backgroundColor: '#F4EEE2' }}>
+        <Header className='wrapperHeader' style={{ zIndex:100,padding: '0rem 1rem',backgroundColor: '#F4EEE2',position:'sticky',top:'0' }}>
             {/* logos */}
             <div className='logoDiv'>
                 <img style={{ maxWidth: '50px', opacity: '0.5' }} src="https://i.ibb.co/B2M3Xc0/logo.png" alt="" />

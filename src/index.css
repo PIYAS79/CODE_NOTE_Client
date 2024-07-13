@@ -81,6 +81,16 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
 }
+.skillWrapperRecent {
+    /* display: flex;
+    gap: 1.5rem; */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+    gap: 20px;
+}
+.ant-layout-sider-children{
+    overflow-y: scroll;
+}
 
 .card {
     background-color: #EFD9AC; 
@@ -120,6 +130,9 @@
 .wrapperAllCode {
     margin-top: 3rem;
 }
+.fullRight{
+    overflow-y: scroll;
+}
 
 @media (max-width: 630px) {
     .wrapperHeader {
@@ -153,16 +166,31 @@
     .pos {
         width: 180px !important;
         height: 180px !important;
-        margin-left: .7rem;
     }
-    /* .ant-image-mask{
-        min-width:200px!important;
-        max-width: 200px!important;
-    } */
     .demo-logo-vertical{
         display: flex!important;
         justify-content:center!important;
         align-items: center!important;
         padding: 0rem!important;
     }
+    .ant-image{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+    }
+}
+
+/* Hide scroll bars for all elements */
+* {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+}
+
+*::-webkit-scrollbar { 
+    display: none;  /* For Chrome, Safari, and Opera */
+}
+
+/* Ensure no overflow in body and html */
+html, body {
+    overflow: hidden;
 }
