@@ -1,5 +1,5 @@
-import { ExclamationCircleOutlined, GithubOutlined, HomeOutlined, JavaOutlined, JavaScriptOutlined, LinkOutlined, NodeExpandOutlined, NodeIndexOutlined, PythonOutlined, ReconciliationOutlined, SettingOutlined, StarOutlined } from '@ant-design/icons';
-import { Layout, Image, Button } from 'antd';
+import { ExclamationCircleOutlined, FieldTimeOutlined, GithubOutlined, HomeOutlined, JavaOutlined, JavaScriptOutlined, LinkOutlined, NodeExpandOutlined, NodeIndexOutlined, PythonOutlined, ReconciliationOutlined, SettingOutlined, StarOutlined } from '@ant-design/icons';
+import { Layout, Image, Button, Timeline } from 'antd';
 import Web_Header from './Web_Header';
 import ContentSection from './ContentSection';
 import { NavLink, Outlet } from 'react-router-dom';
@@ -140,6 +140,7 @@ const Profile_Layout = () => {
                     */}
                         <div className='navLinks-h'>
                             <NavLink to={'/profile'}><p style={{ fontSize: '.8rem' }}><HomeOutlined /> Home</p></NavLink>
+                            <NavLink to={'/timeline'}><p style={{ fontSize: '.8rem' }}><FieldTimeOutlined/> Timeline</p></NavLink>
                             <NavLink to={'/setting'}><p style={{ fontSize: '.8rem' }}><SettingOutlined /> Setting</p></NavLink>
                             <NavLink to={'/star'}><p style={{ fontSize: '.8rem' }}><StarOutlined /> Star</p></NavLink>
                             <NavLink to={'/about'}><p style={{ fontSize: '.8rem' }}><ExclamationCircleOutlined /> About</p></NavLink>

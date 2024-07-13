@@ -123,7 +123,7 @@
 }
 
 .card:hover {
-    background-color: #e6cd9b;
+    background-color: #fad58f;
     cursor: pointer;
 }
 
@@ -133,6 +133,44 @@
 .fullRight{
     overflow-y: scroll;
 }
+
+/* --------- time line page--------- */
+.timelineWrapper{
+    height: 100vh;
+    width: 100%;
+}
+.timelineHeader{
+    text-align: center;
+    margin:.5rem 0rem 0rem 0rem;
+}
+.timeLineBoxWrapper{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); /* Create 12 equal columns */
+    gap: 10px;
+}
+.timelineLeft{
+    grid-column: span 10; /* Take 8 columns */
+    padding: 20px;
+}
+.timelineRight{
+    grid-column: span 2; /* Take 4 columns */
+    padding: 20px; 
+}
+@media (max-width: 1200px) {
+    .timeLineBoxWrapper {
+        grid-template-columns: repeat(8, 1fr); /* Adjust the grid to 8 columns */
+    }
+
+    .timelineRight{
+        display: none; /* Hide the right side */
+    }
+
+    .timelineLeft {
+        grid-column: span 8; /* Make left side take up all 8 columns */
+    }
+}
+
+/* --------- time line page--------- */
 
 @media (max-width: 630px) {
     .wrapperHeader {

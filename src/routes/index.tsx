@@ -7,6 +7,7 @@ import SettingPage from "../pages/Initial_Pages/SettingPage";
 import StarPage from "../pages/Initial_Pages/StarPage";
 import AboutPage from "../pages/Initial_Pages/AboutPage";
 import ProfilePage from "../pages/Initial_Pages/ProfilePage";
+import TimeLinePage from "../pages/Initial_Pages/TimeLinePage";
 
 
 
@@ -22,23 +23,27 @@ const router = createBrowserRouter([
     },
     {
         path: '/',
-        element: <Profile_Layout/>,
+        element: <Profile_Layout />,
         children: [
             {
                 path: 'profile',
                 element: <ProfilePage />
             },
             {
-                path:'setting',
-                element:<SettingPage/>
+                path: 'setting',
+                element: <SettingPage />
             },
             {
-                path:'star',
-                element:<StarPage/>
+                path: 'star',
+                element: <StarPage />
             },
             {
-                path:'about',
-                element:<AboutPage/>
+                path: 'about',
+                element: <AboutPage />
+            },
+            {
+                path: 'timeline',
+                element: <TimeLinePage />
             }
         ]
     }

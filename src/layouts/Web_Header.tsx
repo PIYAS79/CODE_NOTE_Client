@@ -1,4 +1,4 @@
-import { ExclamationCircleOutlined, HomeOutlined, SettingOutlined, StarOutlined } from '@ant-design/icons'
+import { ExclamationCircleOutlined, FieldTimeOutlined, HomeOutlined, SettingOutlined, StarOutlined } from '@ant-design/icons'
 import { Header } from 'antd/es/layout/layout'
 import { NavLink } from 'react-router-dom'
 
@@ -16,6 +16,7 @@ const Web_Header = () => {
             {/* menus */}
             <div className='navLinks'>
                 <NavLink to={'/profile'}><p style={{fontSize:'1rem'}}><HomeOutlined/> Home</p></NavLink>
+                <NavLink to={'/timeline'}><p style={{ fontSize: '1rem' }}><FieldTimeOutlined/> Timeline</p></NavLink>
                 <NavLink to={'/setting'}><p style={{fontSize:'1rem'}}><SettingOutlined/> Setting</p></NavLink>
                 <NavLink to={'/star'}><p style={{fontSize:'1rem'}}><StarOutlined/> Star</p></NavLink>
                 <NavLink to={'/about'}><p style={{fontSize:'1rem'}}><ExclamationCircleOutlined /> About</p></NavLink>
