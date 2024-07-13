@@ -1,7 +1,6 @@
 import { ExclamationCircleOutlined, FieldTimeOutlined, GithubOutlined, HomeOutlined, JavaOutlined, JavaScriptOutlined, LinkOutlined, NodeExpandOutlined, NodeIndexOutlined, PythonOutlined, ReconciliationOutlined, SettingOutlined, StarOutlined } from '@ant-design/icons';
 import { Layout, Image, Button, Timeline } from 'antd';
 import Web_Header from './Web_Header';
-import ContentSection from './ContentSection';
 import { NavLink, Outlet } from 'react-router-dom';
 
 const { Sider } = Layout;
@@ -16,7 +15,7 @@ const Profile_Layout = () => {
             <Layout className='centralLayout' style={{ height: '100vh' }}>
                 <Sider
                     className='siderProfile'
-                    width={300}
+                    width={320}
                     style={{ backgroundColor: '#F4EEE2' }}
                     breakpoint="lg"
                     collapsedWidth="0"
@@ -27,9 +26,9 @@ const Profile_Layout = () => {
                         const layoutContainer = document.querySelector('.fullRight');
                         if (!collapsed) {
                             console.log(collapsed, "FIREEEEEE TRUE");
-                            layoutContainer.style.display = 'none';
+                            layoutContainer!.style.display = 'none';
                         } else {
-                            layoutContainer.style.display = 'flex';
+                            layoutContainer!.style.display = 'flex';
                         }
                     }}
 
