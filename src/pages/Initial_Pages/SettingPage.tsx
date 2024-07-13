@@ -1,11 +1,14 @@
+import {useState} from 'react'
 import { UploadOutlined } from '@ant-design/icons';
 import type { FormProps } from 'antd';
-import { Button, Radio, Select, Form, Input, Upload } from 'antd';
-
+import { Button, Select, Form, Input, Upload, Cascader } from 'antd';
+import { Skill_Option, skill_options } from '../../global/skills_options';
+const { SHOW_CHILD } = Cascader;
+import type { CascaderProps } from 'antd';
 
 
 const SettingPage = () => {
-
+  let flattenedArray:[]|string[];
 
   type FieldType = {
     email?: string;
@@ -20,11 +23,15 @@ const SettingPage = () => {
     address?: string,
     phone?: string,
     stackoverflow?: string,
-    github?: string
+    github?: string,
   };
+  const onChange: CascaderProps<Skill_Option, 'icon', true>['onChange'] = (value) => {
+    flattenedArray = value.flat();
+};
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     console.log('Success:', values);
+    console.log(flattenedArray);
   };
 
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
@@ -69,7 +76,6 @@ const SettingPage = () => {
           {/* ------------------- name (f-name) field ------------------- */}
           <Form.Item<FieldType>
             name="f_name"
-            rules={[{ required: true, message: 'Please input your first name!' }]}
           >
             <Input placeholder='first name' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
           </Form.Item>
@@ -82,81 +88,82 @@ const SettingPage = () => {
           {/* ------------------- name (l-name) field ------------------- */}
           <Form.Item<FieldType>
             name="l_name"
-            rules={[{ required: true, message: 'Please input your last name!' }]}
           >
             <Input placeholder='last name' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
           </Form.Item>
 
           {/* ------------------- profile picture field ------------------- */}
-          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-          <Form.Item
-            name="upload"
-            label="Upload"
-            valuePropName="fileList"
-            // getValueFromEvent={normFile}
-            extra="Upload Profile Picture"
-          >
-            <Upload name="logo" action="/upload.do" listType="picture">
-              <Button style={{backgroundColor:'transparent'}} icon={<UploadOutlined />}>Click to upload</Button>
-            </Upload>
-          </Form.Item>
-          <img width={80} height={80} style={{objectFit:'cover',borderRadius:'.5rem',marginBottom:'.5rem'}} src="https://i.ibb.co/HBtgY1B/fat-thor.webp" alt="" />
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Form.Item
+              name="upload"
+              label="Upload"
+              valuePropName="fileList"
+              // getValueFromEvent={normFile}
+              extra="Upload Profile Picture"
+            >
+              <Upload name="logo" action="/upload.do" listType="picture">
+                <Button style={{ backgroundColor: 'transparent' }} icon={<UploadOutlined />}>Click to upload</Button>
+              </Upload>
+            </Form.Item>
+            <img width={80} height={80} style={{ objectFit: 'cover', borderRadius: '.5rem', marginBottom: '.5rem' }} src="https://i.ibb.co/HBtgY1B/fat-thor.webp" alt="" />
           </div>
           {/* ------------------- id field ------------------- */}
           <Form.Item<FieldType>
             name="id"
-            rules={[{ required: true, message: 'Please input your id!' }]}
           >
             <Input placeholder='faculty / student id' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
           </Form.Item>
           {/* ------------------- telegram field ------------------- */}
           <Form.Item<FieldType>
             name="telegram"
-            rules={[{ required: true, message: 'Please input your telegram link!' }]}
           >
             <Input placeholder='telegram' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
           </Form.Item>
           {/* ------------------- studentPortal field ------------------- */}
           <Form.Item<FieldType>
             name="studentPortal"
-            rules={[{ required: true, message: 'Please input your student portal link!' }]}
           >
             <Input placeholder='student portal' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
           </Form.Item>
           {/* ------------------- github field ------------------- */}
           <Form.Item<FieldType>
             name="github"
-            rules={[{ required: true, message: 'Please input your github link!' }]}
           >
             <Input placeholder='github' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
           </Form.Item>
           {/* ------------------- stackoverflow field ------------------- */}
           <Form.Item<FieldType>
             name="stackoverflow"
-            rules={[{ required: true, message: 'Please input your stackoverflow link!' }]}
           >
             <Input placeholder='stackoverflow' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
           </Form.Item>
           {/* ------------------- phone field ------------------- */}
           <Form.Item<FieldType>
             name="phone"
-            rules={[{ required: true, message: 'Please input your phone!' }]}
           >
             <Input placeholder='phone' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
           </Form.Item>
           {/* ------------------- address field ------------------- */}
           <Form.Item<FieldType>
             name="address"
-            rules={[{ required: true, message: 'Please input your address!' }]}
           >
             <Input placeholder='address' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
           </Form.Item>
+          {/* ------------------- skills field ------------------- */}
+          <Cascader
+            style={{ width: '100%', marginBottom: '.8rem' }}
+            options={skill_options}
+            onChange={onChange}
+            multiple
+            maxTagCount="responsive"
+            showCheckedStrategy="SHOW_CHILD"
+            placeholder='add skills'
+          />
 
 
           {/* ------------------- department field (always at the end) ------------------- */}
           <Form.Item label="Select"
             name="select"
-            rules={[{ required: true, message: 'Please input your department!' }]}
           >
             <Select style={{ background: 'transparent', outline: 'none', border: 'none' }} placeholder="Select Department">
               <Select.Option value="demo1">Demo</Select.Option>
