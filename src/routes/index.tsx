@@ -8,6 +8,7 @@ import StarPage from "../pages/Initial_Pages/StarPage";
 import AboutPage from "../pages/Initial_Pages/AboutPage";
 import ProfilePage from "../pages/Initial_Pages/ProfilePage";
 import TimeLinePage from "../pages/Initial_Pages/TimeLinePage";
+import SingleCodePage from "../pages/Initial_Pages/SingleCodePage";
 
 
 
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: 'profile',
                 element: <ProfilePage />
+            },
+            {
+                path: 'profile/:cid',
+                element: <SingleCodePage />
             },
             {
                 path: 'setting',

@@ -81,6 +81,7 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
 }
+
 .skillWrapperRecent {
     /* display: flex;
     gap: 1.5rem; */
@@ -88,22 +89,24 @@
     grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
     gap: 20px;
 }
-.ant-layout-sider-children{
+
+.ant-layout-sider-children {
     overflow-y: scroll;
 }
 
 .card {
-    background-color: #EFD9AC; 
-    padding:1rem;
+    background-color: #EFD9AC;
+    padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
 }
-.inputModal{
+
+.inputModal {
     width: 100%;
-    border:none;
+    border: none;
     background-color: #efddb8;
-    padding:.5rem;
+    padding: .5rem;
     border-radius: 4px;
     margin-bottom: .5rem;
     outline: none;
@@ -130,47 +133,94 @@
 .wrapperAllCode {
     margin-top: 3rem;
 }
-.fullRight{
+
+.fullRight {
     overflow-y: scroll;
 }
 
 /* --------- time line page--------- */
-.timelineWrapper{
+.timelineWrapper {
     height: 100vh;
     width: 100%;
 }
-.timelineHeader{
+
+.timelineHeader {
     text-align: center;
-    margin:.5rem 0rem 0rem 0rem;
+    margin: .5rem 0rem 0rem 0rem;
 }
-.timeLineBoxWrapper{
+
+.timeLineBoxWrapper {
     display: grid;
-    grid-template-columns: repeat(12, 1fr); /* Create 12 equal columns */
+    grid-template-columns: repeat(12, 1fr);
+    /* Create 12 equal columns */
     gap: 10px;
 }
-.timelineLeft{
-    grid-column: span 10; /* Take 8 columns */
+
+.timelineLeft {
+    grid-column: span 10;
+    /* Take 8 columns */
     padding: 20px;
 }
-.timelineRight{
-    grid-column: span 2; /* Take 4 columns */
-    padding: 20px; 
+
+.timelineRight {
+    grid-column: span 2;
+    /* Take 4 columns */
+    padding: 20px;
 }
+
 @media (max-width: 1200px) {
     .timeLineBoxWrapper {
-        grid-template-columns: repeat(8, 1fr); /* Adjust the grid to 8 columns */
+        grid-template-columns: repeat(8, 1fr);
+        /* Adjust the grid to 8 columns */
     }
 
-    .timelineRight{
-        display: none; /* Hide the right side */
+    .timelineRight {
+        display: none;
+        /* Hide the right side */
     }
 
     .timelineLeft {
-        grid-column: span 8; /* Make left side take up all 8 columns */
+        grid-column: span 8;
+        /* Make left side take up all 8 columns */
     }
 }
 
 /* --------- time line page--------- */
+/* ------------single code page--------- */
+.codeWrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.codeLeft {
+    width: 70%;
+    padding: 20px;
+    background-color: rgba(255, 0, 0, 0.077);
+}
+
+.codeRight {
+    width: 30%;
+    padding: 20px;
+    background-color: green;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+/* ------------single code page--------- */
+
+@media (max-width: 1000px) {
+    .codeWrapper{
+        flex-direction: column-reverse;
+    }
+    .codeLeft{
+        width: 100%;
+    }
+    .codeRight{
+        width: 100%;
+    }
+}
 
 @media (max-width: 630px) {
     .wrapperHeader {
@@ -205,13 +255,15 @@
         width: 180px !important;
         height: 180px !important;
     }
-    .demo-logo-vertical{
-        display: flex!important;
-        justify-content:center!important;
-        align-items: center!important;
-        padding: 0rem!important;
+
+    .demo-logo-vertical {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 0rem !important;
     }
-    .ant-image{
+
+    .ant-image {
         display: flex;
         justify-content: start;
         align-items: center;
@@ -220,15 +272,19 @@
 
 /* Hide scroll bars for all elements */
 * {
-    scrollbar-width: none; /* For Firefox */
-    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+    scrollbar-width: none;
+    /* For Firefox */
+    -ms-overflow-style: none;
+    /* For Internet Explorer and Edge */
 }
 
-*::-webkit-scrollbar { 
-    display: none;  /* For Chrome, Safari, and Opera */
+*::-webkit-scrollbar {
+    display: none;
+    /* For Chrome, Safari, and Opera */
 }
 
 /* Ensure no overflow in body and html */
-html, body {
+html,
+body {
     overflow: hidden;
 }
