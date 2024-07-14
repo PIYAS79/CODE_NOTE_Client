@@ -1,11 +1,22 @@
 
 import type { FormProps } from 'antd';
-import { Button, Radio, Select, Form, Input } from 'antd';
+import { Button, Radio, Select, Form, Input, Alert } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import { departments } from '../../global/departments';
+import { Create_Faculty_Type, Create_Student_Type } from '../../interfaces/signup.interface';
+import { useCreateUserMutation } from '../../redux/api/authApi';
+import { Decode_JWT_Token } from '../../utils/decodeJwt';
+import { useAppDispatch } from '../../redux/hooks';
+import { User_Type, setUser } from '../../redux/features/authSlice';
 
 
 
 const SignupPage = () => {
 
+  const [createUserFnc, { error }] = useCreateUserMutation()
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  console.log(error);
 
   type FieldType = {
     email: string;
@@ -18,45 +29,63 @@ const SignupPage = () => {
     id: string
   };
 
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values);
+  const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+    if (values.role === 'STUDENT') {
+      // for student
+      const newStudent: Create_Student_Type = {
+        user: {
+          email: values.email,
+          role: values.role,
+          password: values.password,
+        },
+        name: {
+          f_name: values.f_name,
+          m_name: values.m_name,
+          l_name: values.l_name
+        },
+        studentId: values.id,
+        department: values.select
+      }
+      const data = await createUserFnc(newStudent).unwrap();
+      const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
+      dispatch(setUser({ user, token: data.data.AccessToken }));
+      navigate('/profile');
+    } else {
+      // for faculty
+      const newFaculty: Create_Faculty_Type = {
+        user: {
+          email: values.email,
+          role: values.role,
+          password: values.password,
+        },
+        name: {
+          f_name: values.f_name,
+          m_name: values.m_name,
+          l_name: values.l_name
+        },
+        teacherId: values.id,
+        department: values.select
+      }
+      const data = await createUserFnc(newFaculty).unwrap();
+      const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
+      dispatch(setUser({ user, token: data.data.AccessToken }));
+      navigate('/profile');
+    }
   };
 
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log(errorInfo);
   };
 
 
 
   return (
-    <div style={{backgroundColor: '#F4EEE2', height:'100vh',display:'grid'}}>
+    <div style={{ backgroundColor: '#F4EEE2', height: '100vh', display: 'grid', overflowY: 'scroll' }}>
       <div style={{ backgroundColor: '#F4EEE2', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-        <img style={{ maxWidth: '70px', margin: '2rem 0rem 1rem 0rem', opacity: '0.5' }} src="https://i.ibb.co/B2M3Xc0/logo.png" alt="" />
+        <img style={{ maxWidth: '70px', margin: '2rem 0rem .5rem 0rem', opacity: '0.5' }} src="https://i.ibb.co/B2M3Xc0/logo.png" alt="" />
         <h1 className='web-color' style={{ fontFamily: 'var(--Wittgenstein)' }}>CODE NOTE</h1>
-        <small style={{ fontFamily: 'var(--Playwrite)', marginBottom: '2rem' }}>Easy, Perfect & Instant Note</small>
+        <small style={{ fontFamily: 'var(--Playwrite)', marginBottom: '2rem', marginTop: '-.8rem' }}>Easy, Perfect & Instant Note</small>
         <h2 style={{ fontFamily: 'var(--Wittgenstein)', marginBottom: '1rem', color: '#4a4a4a' }}>SIGNUP</h2>
-
-
-
-        {/* 
-{
-    "user": {
-        "email": "teacher01@gmail.com",
-        "role": "TEACHER",
-        "password": "222",
-    },
-    "name": {
-        "f_name": "Piyas",
-        "m_name": "Mahamude",
-        "l_name": "Alif"
-    },
-    "teacherId": "tid-01",
-    "department":"CSE"
-}
-
-
-*/}
-
 
         <Form
           name="basic"
@@ -129,23 +158,16 @@ const SignupPage = () => {
             rules={[{ required: true, message: 'Please input your department!' }]}
           >
             <Select style={{ background: 'transparent', outline: 'none', border: 'none' }} placeholder="Select Department">
-              <Select.Option value="demo1">Demo</Select.Option>
-              <Select.Option value="demo2">Demo</Select.Option>
-              <Select.Option value="demo3">Demo</Select.Option>
-              <Select.Option value="demo4">Demo</Select.Option>
+              {departments.map((one) => <Select.Option key={one} value={one}>{one}</Select.Option>)}
             </Select>
           </Form.Item>
-
-
-
-
-
 
           <Form.Item wrapperCol={{ offset: 0, span: 16 }} style={{ display: 'flex', justifyContent: 'center' }}>
             <Button className='web-button' type="primary" htmlType="submit" style={{ border: 'none', padding: '0rem 3rem', backgroundColor: '' }}>
               SIGNUP NOW
             </Button>
           </Form.Item>
+          <p style={{ textAlign: 'center', marginTop: '-1rem', marginBottom: '2rem' }}>Already have an account? <Link to={'/login'}>Go Login</Link></p>
         </Form>
       </div>
     </div>

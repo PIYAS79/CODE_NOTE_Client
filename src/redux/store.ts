@@ -1,12 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit"
+import baseApi from "./api/baseApi";
 import timeLineReducer from './features/timeLineSlice';
+import authReducer from './features/authSlice';
+
+
+
 
 export const store = configureStore({
-    reducer:{
-        timeline:timeLineReducer
+    reducer: {
+        [baseApi.reducerPath]: baseApi.reducer,
+        timeline: timeLineReducer,
+        auth: authReducer
     },
-    devTools:true
-}) 
+    devTools: true,
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(baseApi.middleware),
+})
 
 
 

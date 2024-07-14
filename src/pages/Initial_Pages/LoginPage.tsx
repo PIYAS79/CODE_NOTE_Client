@@ -1,6 +1,7 @@
 
 import type { FormProps } from 'antd';
 import { Button, Checkbox, Form, Input } from 'antd';
+import { Link } from 'react-router-dom';
 
 
 
@@ -73,6 +74,7 @@ const LoginPage = () => {
             LOGIN NOW
           </Button>
         </Form.Item>
+        <p style={{textAlign:'center',marginTop:'-1rem'}}>Don't have an account? <Link to={'/signup'}>Create Account</Link></p>
       </Form>
     </div>
   )
