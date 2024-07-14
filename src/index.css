@@ -83,8 +83,6 @@
 }
 
 .skillWrapperRecent {
-    /* display: flex;
-    gap: 1.5rem; */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
     gap: 20px;
@@ -292,6 +290,10 @@
         justify-content: start;
         align-items: center;
     }
+    .small-float-image{
+        bottom: 2rem!important;
+        right: 4.2rem!important;
+    }
 }
 
 /* Hide scroll bars for all elements */
@@ -312,3 +314,12 @@ html,
 body {
     overflow: hidden;
 }
+
+.navLinks .active > p {
+    color:orangered!important;
+    font-weight: 400;
+  }
+.navLinks-h .active > p {
+    color:orangered!important;
+    font-weight: 400;
+  }

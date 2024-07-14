@@ -13,6 +13,7 @@ const SettingPage = () => {
   type FieldType = {
     email?: string;
     password?: string;
+    semester?: number;
     select?: string,
     f_name?: string,
     m_name?: string,
@@ -112,6 +113,12 @@ const SettingPage = () => {
             name="id"
           >
             <Input placeholder='faculty / student id' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
+          </Form.Item>
+          {/* ------------------- semester field ------------------- */}
+          <Form.Item<FieldType>
+            name="semester"
+          >
+            <Input placeholder='semester' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
           </Form.Item>
           {/* ------------------- telegram field ------------------- */}
           <Form.Item<FieldType>

@@ -6,11 +6,6 @@ export interface Skill_Option {
 
 export const skill_options: Skill_Option[] = [
     {
-        value: "Arch Linux",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/archlinux/archlinux-original.svg",
-        label: "Arch Linux"
-    },
-    {
         value: "Java",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg",
         label: "Java"

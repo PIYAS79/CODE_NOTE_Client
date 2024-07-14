@@ -9,6 +9,8 @@ import AboutPage from "../pages/Initial_Pages/AboutPage";
 import ProfilePage from "../pages/Initial_Pages/ProfilePage";
 import TimeLinePage from "../pages/Initial_Pages/TimeLinePage";
 import SingleCodePage from "../pages/Initial_Pages/SingleCodePage";
+import Profile_View_Page from "../pages/Initial_Pages/Profile_View_Page";
+import SendEmail_Page from "../pages/Others/SendEmail_Page";
 
 
 
@@ -49,6 +51,14 @@ const router = createBrowserRouter([
             {
                 path: 'timeline',
                 element: <TimeLinePage />
+            },
+            {
+                path: 'timeline/:uid',
+                element: <Profile_View_Page />
+            },
+            {
+                path: 'timeline/email',
+                element: <SendEmail_Page />
             }
         ]
     }

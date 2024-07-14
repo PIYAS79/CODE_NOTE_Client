@@ -1,11 +1,12 @@
 import { Image } from "antd"
+import { NavLink } from "react-router-dom"
 
 
 const User_Card = () => {
 
     
     return (
-        <div className="userCard">
+        <NavLink to={`/timeline/${6}`} target="_blank" className="userCard">
             <Image
                 width={50}
                 height={50}
@@ -17,11 +18,11 @@ const User_Card = () => {
             />
             <div>
             <span style={{backgroundColor:'olive',color:'white',marginRight:'.3rem',padding:'0rem .5rem',borderRadius:'.2rem'}}>CSE</span>
-            <span style={{backgroundColor:'orange',padding:'0rem .5rem',borderRadius:'.2rem'}}>student</span>
+            <span style={{backgroundColor:'orange',color:'black',padding:'0rem .5rem',borderRadius:'.2rem'}}>student</span>
             {/* <span style={{backgroundColor:'gray',color:'white',padding:'0rem .5rem',borderRadius:'.2rem'}}>faculty</span> */}
-                <p style={{fontWeight:'bold'}}>Name : <span style={{fontWeight:'400'}}>S M Piyas Mahamude Alif</span></p>
+                <p style={{fontWeight:'bold',color:'black'}}>Name : <span style={{fontWeight:'400'}}>S M Piyas Mahamude Alif</span></p>
             </div>
-        </div>
+        </NavLink>
     )
 }
 
