@@ -1,5 +1,6 @@
 import { Image } from "antd"
-import Card from "../../components/Card"
+import TimeLine_Left_Layout from "../../layouts/TimeLine_Left_Layout"
+import TimeLine_Search from "../../components/TimeLine_Search"
 
 const TimeLinePage = () => {
     return (
@@ -7,36 +8,11 @@ const TimeLinePage = () => {
             <div className="timelineHeader">
                 <h1 className='web-color' style={{ fontFamily: 'var(--Wittgenstein)' }}>TIME_LINE</h1>
                 <p style={{ fontFamily: 'var(--Playwrite)' }}>Let's see who coded what around you!</p>
+                <TimeLine_Search/>
             </div>
             <div className="timeLineBoxWrapper">
                 <div className="timelineLeft">
-                    <h4 style={{ color:'#f36214',fontFamily: 'var(--Wittgenstein)', marginBottom: '.5rem' }}>Code of your friends and teachers</h4>
-                    <div className="">
-                        <div className="cardWrapperRecent">
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                        </div>
-                    </div>
+                    <TimeLine_Left_Layout/>
                 </div>
                 <div className="timelineRight">
                     <h4 style={{ fontFamily: 'var(--Wittgenstein)', marginBottom: '.5rem',color:'green' }}>University Activities</h4>

@@ -201,7 +201,7 @@
 .codeRight {
     width: 30%;
     margin: 20px 20px 0px 0px;
-    padding:20px;
+    padding: 20px;
     background-color: rgb(241, 220, 195);
     display: flex;
     flex-direction: column;
@@ -209,21 +209,40 @@
     align-items: center;
     border-radius: .5rem;
 }
+
 /* ------------single code page--------- */
 
+.userCard {
+    background-color: #EFD9AC;
+    border-radius: .5rem;
+    padding: .5rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: .4rem;
+}
+
+.userCard:hover {
+    background-color: #fad58f;
+    cursor: pointer;
+}
+
 @media (max-width: 1000px) {
-    .codeWrapper{
+    .codeWrapper {
         flex-direction: column-reverse;
     }
-    .codeLeft{
+
+    .codeLeft {
         width: 100%;
         padding: 0px;
     }
-    .codeRight{
+
+    .codeRight {
         width: 100%;
     }
-    .codeBox{
-        width: 100vw!important;
+
+    .codeBox {
+        width: 100vw !important;
         overflow-x: scroll;
     }
 }
