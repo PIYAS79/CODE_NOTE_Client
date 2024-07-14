@@ -1,12 +1,20 @@
 
 import type { FormProps } from 'antd';
 import { Button, Checkbox, Form, Input } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useLoginUserMutation } from '../../redux/api/authApi';
+import { Decode_JWT_Token } from '../../utils/decodeJwt';
+import { User_Type, setUser } from '../../redux/features/authSlice';
+import { useAppDispatch } from '../../redux/hooks';
 
 
 
 const LoginPage = () => {
 
+  const [loginUserFnc, { error }] = useLoginUserMutation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  console.log(error);
 
   type FieldType = {
     email?: string;
@@ -14,8 +22,14 @@ const LoginPage = () => {
     remember?: string;
   };
 
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values);
+  const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+    const data = await loginUserFnc({
+      email: values.email,
+      password: values.password
+    }).unwrap();
+    const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
+    dispatch(setUser({ user, token: data.data.AccessToken }));
+    navigate('/profile');
   };
 
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
@@ -25,7 +39,7 @@ const LoginPage = () => {
 
 
   return (
-    <div style={{ backgroundColor: '#F4EEE2', height: '100vh', width: '100%',overflow:'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+    <div style={{ backgroundColor: '#F4EEE2', height: '100vh', width: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
       <img style={{ maxWidth: '70px', marginBottom: '1rem', opacity: '0.5' }} src="https://i.ibb.co/B2M3Xc0/logo.png" alt="" />
       <h1 className='web-color' style={{ fontFamily: 'var(--Wittgenstein)' }}>CODE NOTE</h1>
       <small style={{ fontFamily: 'var(--Playwrite)', marginBottom: '3rem' }}>Easy, Perfect & Instant Note</small>
@@ -74,7 +88,7 @@ const LoginPage = () => {
             LOGIN NOW
           </Button>
         </Form.Item>
-        <p style={{textAlign:'center',marginTop:'-1rem'}}>Don't have an account? <Link to={'/signup'}>Create Account</Link></p>
+        <p style={{ textAlign: 'center', marginTop: '-1rem' }}>Don't have an account? <Link to={'/signup'}>Create Account</Link></p>
       </Form>
     </div>
   )

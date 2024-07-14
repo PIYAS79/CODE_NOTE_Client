@@ -3,12 +3,19 @@ import { Layout, Image, Button, Timeline } from 'antd';
 import Web_Header from './Web_Header';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import Skill_Section from '../components/Skill_Section';
+import { useAppDispatch } from '../redux/hooks';
+import { removeUser } from '../redux/features/authSlice';
 
 const { Sider } = Layout;
 
 
 const Profile_Layout = () => {
 
+    const dispatch = useAppDispatch();
+
+    const handleLogoutUser = () => {
+        dispatch(removeUser(undefined));
+    }
 
 
     return (
@@ -91,7 +98,7 @@ const Profile_Layout = () => {
                                     Edit Profile
                                 </Button>
                             </Link>
-                            <Button className='web-button-logout' type="primary" style={{ marginTop: '1rem', border: 'none', width: '100%', padding: '0rem 3rem' }}>
+                            <Button onClick={handleLogoutUser} className='web-button-logout' type="primary" style={{ marginTop: '1rem', border: 'none', width: '100%', padding: '0rem 3rem' }}>
                                 LOGOUT
                             </Button>
                         </div>
