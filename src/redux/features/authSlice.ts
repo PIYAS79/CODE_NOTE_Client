@@ -9,12 +9,14 @@ export type User_Type = {
 
 type initialState_Auth_Type = {
     user: User_Type | null,
-    token: string | null
+    token: string | null,
+    _id: string | null
 }
 
 const initialState: initialState_Auth_Type = {
     user: null,
-    token: null
+    token: null,
+    _id:null,
 }
 
 
@@ -24,17 +26,19 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setUser: (state, action: PayloadAction<initialState_Auth_Type>) => {
-            const { token, user } = action.payload;
+            const { token, user, _id } = action.payload;
             state.token = token;
             state.user = user;
+            state._id = _id;
         },
-        removeUser:(state)=>{
+        removeUser: (state) => {
             state.token = null;
             state.user = null;
+            state._id = null;
         }
     }
 })
 
 
-export const {setUser,removeUser} = authSlice.actions;
+export const { setUser, removeUser } = authSlice.actions;
 export default authSlice.reducer;

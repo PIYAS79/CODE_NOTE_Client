@@ -1,4 +1,3 @@
-
 import type { FormProps } from 'antd';
 import { Button, Radio, Select, Form, Input, Alert } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,9 +9,7 @@ import { useAppDispatch } from '../../redux/hooks';
 import { User_Type, setUser } from '../../redux/features/authSlice';
 
 
-
 const SignupPage = () => {
-
   const [createUserFnc, { error }] = useCreateUserMutation()
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -46,9 +43,13 @@ const SignupPage = () => {
         studentId: values.id,
         department: values.select
       }
+      // pass data to create user route
       const data = await createUserFnc(newStudent).unwrap();
+      // decode token by access token 
       const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
-      dispatch(setUser({ user, token: data.data.AccessToken }));
+      // set user to redux state
+      dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.user._id }));
+      // affter successfully login , navigate to profile route
       navigate('/profile');
     } else {
       // for faculty
@@ -66,9 +67,13 @@ const SignupPage = () => {
         teacherId: values.id,
         department: values.select
       }
+      // pass data to create user route
       const data = await createUserFnc(newFaculty).unwrap();
+      // decode token by access token 
       const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
-      dispatch(setUser({ user, token: data.data.AccessToken }));
+      // set user to redux state
+      dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.user._id }));
+      // affter successfully login , navigate to profile route
       navigate('/profile');
     }
   };

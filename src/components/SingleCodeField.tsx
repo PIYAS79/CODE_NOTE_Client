@@ -1,20 +1,15 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import hljs from '../utils/highlightSetup';
 import 'highlight.js/styles/github.css';
 import { CopyOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
+import { detectLanguage } from '../utils/detectLanguage';
 
-const detectLanguage = (code: string) => {
-    try {
-        const detectedLanguage = hljs.highlightAuto(code).language;
-        return detectedLanguage || 'plaintext';
-    } catch (error) {
-        console.error('Error detecting language:', error);
-        return 'plaintext';
-    }
-};
 
+/**
+ * No need to find out the lang,
+ * cuz its identify during the creation
+ */
 
 const SingleCodeField = ({ code }: { code: string }) => {
     const lang = detectLanguage(code);
@@ -36,7 +31,7 @@ const SingleCodeField = ({ code }: { code: string }) => {
     };
 
     return (
-        <div className='codeBox' style={{ position: 'relative'}}>
+        <div className='codeBox' style={{ position: 'relative' }}>
             <SyntaxHighlighter language={lang} style={atomDark}>
                 {code}
             </SyntaxHighlighter>
@@ -51,7 +46,7 @@ const SingleCodeField = ({ code }: { code: string }) => {
                     cursor: 'pointer',
                     color: '#52c41a',
                     padding: '5px',
-                    fontSize:'1rem'
+                    fontSize: '1rem'
                 }}
             >
                 <CopyOutlined />

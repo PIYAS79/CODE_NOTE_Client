@@ -1,5 +1,5 @@
-import { ExclamationCircleOutlined, FieldTimeOutlined, GithubOutlined, HomeOutlined, JavaOutlined, JavaScriptOutlined, LinkOutlined, NodeExpandOutlined, NodeIndexOutlined, PythonOutlined, ReconciliationOutlined, SettingOutlined, StarOutlined } from '@ant-design/icons';
-import { Layout, Image, Button, Timeline } from 'antd';
+import { ExclamationCircleOutlined, FieldTimeOutlined, GithubOutlined, HomeOutlined, LinkOutlined, SettingOutlined, StarOutlined } from '@ant-design/icons';
+import { Layout, Image, Button } from 'antd';
 import Web_Header from './Web_Header';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import Skill_Section from '../components/Skill_Section';

@@ -1,4 +1,3 @@
-
 import type { FormProps } from 'antd';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
@@ -23,12 +22,16 @@ const LoginPage = () => {
   };
 
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+    // send data to login api route
     const data = await loginUserFnc({
       email: values.email,
       password: values.password
     }).unwrap();
+    // decode token by access token  
     const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
-    dispatch(setUser({ user, token: data.data.AccessToken }));
+    // set user to redux state
+    dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.user._id }));
+    // after successfully login , then navigate to prifile route
     navigate('/profile');
   };
 
