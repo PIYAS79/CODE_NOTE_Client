@@ -9,8 +9,8 @@ const ContentSection = () => {
 
     const user_id = useAppSelector(state=>state.auth._id);
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
-    const {data,error,isLoading} = useGetMyAllCodesQuery(user_id);
-    console.log({isLoading,error,data});
+    const data = useGetMyAllCodesQuery(user_id);
+    console.log('=======>>>',data.data);
 
     return (
         <Content style={{ margin: '24px 16px 0', height: '100%' }}>

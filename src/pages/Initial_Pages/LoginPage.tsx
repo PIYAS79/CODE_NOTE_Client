@@ -5,6 +5,7 @@ import { useLoginUserMutation } from '../../redux/api/authApi';
 import { Decode_JWT_Token } from '../../utils/decodeJwt';
 import { User_Type, setUser } from '../../redux/features/authSlice';
 import { useAppDispatch } from '../../redux/hooks';
+import { toast } from 'sonner';
 
 
 
@@ -22,17 +23,25 @@ const LoginPage = () => {
   };
 
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-    // send data to login api route
-    const data = await loginUserFnc({
-      email: values.email,
-      password: values.password
-    }).unwrap();
-    // decode token by access token  
-    const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
-    // set user to redux state
-    dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.user._id }));
-    // after successfully login , then navigate to prifile route
-    navigate('/profile');
+    const toastId = toast.success('Loading.....');
+    try {
+      // send data to login api route
+      const data = await loginUserFnc({
+        email: values.email,
+        password: values.password
+      }).unwrap();
+      if (data.success) {
+        toast.success("Successfully Login User", { id: toastId });
+        // decode token by access token  
+        const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
+        // set user to redux state
+        dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.user._id }));
+        // after successfully login , then navigate to prifile route
+        navigate('/profile');
+      }
+    } catch (err: any) {
+      toast.error(err.message, { id: toastId });
+    }
   };
 
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {

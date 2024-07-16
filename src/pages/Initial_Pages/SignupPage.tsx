@@ -7,6 +7,7 @@ import { useCreateUserMutation } from '../../redux/api/authApi';
 import { Decode_JWT_Token } from '../../utils/decodeJwt';
 import { useAppDispatch } from '../../redux/hooks';
 import { User_Type, setUser } from '../../redux/features/authSlice';
+import { toast } from 'sonner';
 
 
 const SignupPage = () => {
@@ -27,54 +28,65 @@ const SignupPage = () => {
   };
 
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-    if (values.role === 'STUDENT') {
-      // for student
-      const newStudent: Create_Student_Type = {
-        user: {
-          email: values.email,
-          role: values.role,
-          password: values.password,
-        },
-        name: {
-          f_name: values.f_name,
-          m_name: values.m_name,
-          l_name: values.l_name
-        },
-        studentId: values.id,
-        department: values.select
+    const toastId = toast.loading('Loading....', { position: 'top-center' });
+    try {
+      if (values.role === 'STUDENT') {
+        // for student
+        const newStudent: Create_Student_Type = {
+          user: {
+            email: values.email,
+            role: values.role,
+            password: values.password,
+          },
+          name: {
+            f_name: values.f_name,
+            m_name: values.m_name,
+            l_name: values.l_name
+          },
+          studentId: values.id,
+          department: values.select
+        }
+        // pass data to create user route
+        const data = await createUserFnc(newStudent).unwrap();
+        if (data.success) {
+          toast.success("Successfully Create Account !", { id: toastId, position: 'top-center' });
+          // decode token by access token 
+          const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
+          // set user to redux state
+          dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.user._id }));
+          // affter successfully login , navigate to profile route
+          navigate('/profile');
+        }
+      } else {
+        // for faculty
+        const newFaculty: Create_Faculty_Type = {
+          user: {
+            email: values.email,
+            role: values.role,
+            password: values.password,
+          },
+          name: {
+            f_name: values.f_name,
+            m_name: values.m_name,
+            l_name: values.l_name
+          },
+          teacherId: values.id,
+          department: values.select
+        }
+        // pass data to create user route
+        const data = await createUserFnc(newFaculty).unwrap();
+        if (data.success) {
+          toast.success("Successfully Create Account !", { id: toastId, position: 'top-center' });
+          // decode token by access token 
+          const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
+          // set user to redux state
+          dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.user._id }));
+          // affter successfully login , navigate to profile route
+          navigate('/profile');
+        }
       }
-      // pass data to create user route
-      const data = await createUserFnc(newStudent).unwrap();
-      // decode token by access token 
-      const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
-      // set user to redux state
-      dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.user._id }));
-      // affter successfully login , navigate to profile route
-      navigate('/profile');
-    } else {
-      // for faculty
-      const newFaculty: Create_Faculty_Type = {
-        user: {
-          email: values.email,
-          role: values.role,
-          password: values.password,
-        },
-        name: {
-          f_name: values.f_name,
-          m_name: values.m_name,
-          l_name: values.l_name
-        },
-        teacherId: values.id,
-        department: values.select
-      }
-      // pass data to create user route
-      const data = await createUserFnc(newFaculty).unwrap();
-      // decode token by access token 
-      const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
-      // set user to redux state
-      dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.user._id }));
-      // affter successfully login , navigate to profile route
-      navigate('/profile');
+    } catch (err: any) {
+      toast.error(err.message, { id: toastId, position: 'top-center' });
     }
   };
 

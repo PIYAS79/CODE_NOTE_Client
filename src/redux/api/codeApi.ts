@@ -16,8 +16,11 @@ const codeApi = baseApi.injectEndpoints({
         getMyAllCodes: builder.query({
             query: (user_id) => ({
                 url: `/code/user/${user_id}`,
-                method: 'GET'
-            })
+                method: 'GET',
+            }),
+            transformResponse: (res:any) => {
+                return res.data.result 
+            }
         })
     })
 })

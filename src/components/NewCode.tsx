@@ -24,10 +24,15 @@ const NewCode = () => {
     const handleOk = async () => {
         const codeLang = detectLanguage(code);
         const newCode = { title, courseCode, code, author, isStar: false, language: codeLang }
-        const data = await createCodeFnc(newCode).unwrap();
-        if (data.success) {
-            setIsModalOpen(false);
-            toast.success(data.message, { duration: 2000, position: 'top-center' })
+        const toastId = toast.loading("Loading...", { position: 'top-center' });
+        try {
+            const data = await createCodeFnc(newCode).unwrap();
+            if (data.success) {
+                setIsModalOpen(false);
+                toast.success(data.message, { duration: 2000, position: 'top-center', id: toastId });
+            }
+        } catch (err: any) {
+            toast.error(err.message, { id: toastId, position: 'top-center' });
         }
     };
 
