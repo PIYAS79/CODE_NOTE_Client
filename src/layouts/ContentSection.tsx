@@ -21,11 +21,12 @@ const ContentSection = () => {
                     background: colorBgContainer,
                     borderRadius: borderRadiusLG,
                     overflowY: 'scroll',
-                    height: '100%'
+                    height: '100%',
+                    
                 }}
             >
-                <RecentlyAdded />
-                <AllCodes />
+                <RecentlyAdded data={data?.data?.slice(0,4)}/>
+                <AllCodes data={data.data}/>
             </div>
         </Content>
     )

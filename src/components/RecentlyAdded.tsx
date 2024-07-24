@@ -1,8 +1,10 @@
+import { Card_Type } from "../global/card.interface";
 import Card from "./Card"
 import NewCode from './NewCode';
 
 
-const RecentlyAdded = () => {
+const RecentlyAdded = ({ data }: { data: Card_Type[] }) => {
+
 
   return (
     <div style={{ overflow: 'hidden' }}>
@@ -11,10 +13,9 @@ const RecentlyAdded = () => {
         <NewCode />
       </div>
       <div className="cardWrapperRecent">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {
+          data?.map((one: Card_Type) => <Card data={one} key={one._id} />)
+        }
       </div>
     </div>
   )

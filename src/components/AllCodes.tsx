@@ -1,32 +1,14 @@
+import { Card_Type } from "../global/card.interface"
 import Card from "./Card"
 
-const AllCodes = () => {
+const AllCodes = ({ data }: { data: Card_Type[] }) => {
     return (
         <div className="wrapperAllCode">
             <p style={{ color: '#474740', fontWeight: 'bold', fontSize: '1rem', fontFamily: 'var(--Wittgenstein)', marginBlock: '5px' }}>All Codes</p>
             <div className="cardWrapperRecent">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                {
+                    data?.slice(4, data.length)?.map((one: Card_Type) => <Card data={one} key={one._id} />)
+                }
             </div>
         </div>
     )
