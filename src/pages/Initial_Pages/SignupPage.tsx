@@ -53,7 +53,7 @@ const SignupPage = () => {
           // decode token by access token 
           const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
           // set user to redux state
-          dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.user._id }));
+          dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.student[0].user }));
           // affter successfully login , navigate to profile route
           navigate('/profile');
         }
@@ -75,12 +75,13 @@ const SignupPage = () => {
         }
         // pass data to create user route
         const data = await createUserFnc(newFaculty).unwrap();
+        console.log(data);
         if (data.success) {
           toast.success("Successfully Create Account !", { id: toastId, position: 'top-center' });
           // decode token by access token 
           const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
           // set user to redux state
-          dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.user._id }));
+          dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.teacher[0].user }));
           // affter successfully login , navigate to profile route
           navigate('/profile');
         }

@@ -10,7 +10,8 @@ const codeApi = baseApi.injectEndpoints({
                 url: '/code',
                 method: 'POST',
                 body: data
-            })
+            }),
+            invalidatesTags: ['codes']
         }),
         // get my codes api
         getMyAllCodes: builder.query({
@@ -18,9 +19,10 @@ const codeApi = baseApi.injectEndpoints({
                 url: `/code/user/${user_id}`,
                 method: 'GET',
             }),
-            transformResponse: (res:any) => {
-                return res.data.result 
-            }
+            transformResponse: (res: any) => {
+                return res.data.result
+            },
+            providesTags: ['codes']
         })
     })
 })

@@ -14,7 +14,9 @@ const RecentlyAdded = ({ data }: { data: Card_Type[] }) => {
       </div>
       <div className="cardWrapperRecent">
         {
-          data?.map((one: Card_Type) => <Card data={one} key={one._id} />)
+          data?.length == 0 ?
+            <small style={{color:'red'}}>No Recent Code Found !</small>
+            : data?.map((one: Card_Type) => <Card data={one} key={one._id} />)
         }
       </div>
     </div>
