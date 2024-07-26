@@ -13,7 +13,7 @@ import { detectLanguage } from '../utils/detectLanguage';
 
 const SingleCodeField = ({ code }: { code: string }) => {
     const lang = detectLanguage(code);
-    console.log(lang);
+    // console.log(lang);
 
 
     //   success copy modal

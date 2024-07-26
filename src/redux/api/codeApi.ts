@@ -23,9 +23,18 @@ const codeApi = baseApi.injectEndpoints({
                 return res.data.result
             },
             providesTags: ['codes']
-        })
+        }),
+        // update code api
+        updateCode: builder.mutation({
+            query: ({data,cid}) => ({
+                url: `code/${cid}`,
+                method: 'PATCH',
+                body: data
+            }),
+            invalidatesTags: ['codes']
+        }),
     })
 })
 
 
-export const { useCreateCodeMutation, useGetMyAllCodesQuery } = codeApi;
+export const { useCreateCodeMutation, useGetMyAllCodesQuery,useUpdateCodeMutation } = codeApi;
