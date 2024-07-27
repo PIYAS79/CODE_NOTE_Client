@@ -7,7 +7,7 @@ const TimeLinePage = () => {
         <div className="timelineWrapper">
             <div className="timelineHeader">
                 <h1 className='web-color' style={{ fontFamily: 'var(--Wittgenstein)' }}>TIME_LINE</h1>
-                <p style={{ fontFamily: 'var(--Playwrite)' }}>Let's see who coded what around you!</p>
+                <p style={{ fontFamily: 'var(--Playwrite)',marginTop:"-.3rem" }}>Let's see who coded what around you!</p>
                 <TimeLine_Search/>
             </div>
             <div className="timeLineBoxWrapper">

@@ -6,7 +6,7 @@ import { convertDateFormat } from "../utils/convertDateFormat"
 
 const Card = ({ data }: { data: Card_Type, key: any }) => {
     return (
-        <NavLink to={`/profile/${data._id}`} className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
+        <NavLink to={`/profile/${data?._id}`} className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
             <div>
                 <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Title : <span style={{ fontWeight: '200' }}>{data?.title}</span></p>
                 <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '14px' }}>Course Code : <span style={{ fontWeight: '200' }}>{data?.courseCode}</span></p>
@@ -15,7 +15,7 @@ const Card = ({ data }: { data: Card_Type, key: any }) => {
             </div>
             <div>
                 {
-                    data.isStar ?
+                    data?.isStar ?
                         <StarFilled style={{ color: '#ff4500' }} />
                         :
                         <StarOutlined style={{ color: 'gray' }} />

@@ -9,10 +9,8 @@ const AllCodes = ({ data }: { data: Card_Type[] }) => {
                 {
                     data?.length == 0 ?
                         <small style={{ color: 'red' }}>No Codes Found !</small>
-                        : data?.length < 5 ?
-                            data?.map((one: Card_Type) => <Card data={one} key={one._id} />)
-                            :
-                            data?.slice(4, data.length)?.map((one: Card_Type) => <Card data={one} key={one._id} />)
+                        :
+                        data?.map((one: Card_Type) => <Card data={one} key={one._id} />)
                 }
             </div>
         </div>

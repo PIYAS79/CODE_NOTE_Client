@@ -18,7 +18,7 @@ export const store = configureStore({
     reducer: {
         [baseApi.reducerPath]: baseApi.reducer,
         timeline: timeLineReducer,
-        auth: persistedAuthReducer
+        auth: persistedAuthReducer,
     },
     devTools: true,
     middleware: getDefaultMiddleware => getDefaultMiddleware({

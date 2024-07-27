@@ -9,7 +9,7 @@ const options = [
         label: 'student',
     },
     {
-        value: 'faculty',
+        value: 'teacher',
         label: 'faculty',
     },
     {
@@ -19,15 +19,15 @@ const options = [
 ];
 
 const TimeLine_Search = () => {
-    const selectVal = useAppSelector(state=>state.timeline.searchSelect_value);
+    const {inputval,selectVal} = useAppSelector(state => state.timeline);
     const dispatch = useAppDispatch();
     const [selectValue, setSelectValue] = useState(selectVal);
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState(inputval);
 
     // for select value
     const handleSelectChange = (value: string) => {
         setSelectValue(value);
-        dispatch(setSearchSelectValue(value));
+        dispatch(setSearchSelectValue({ selectVal:value, inputValue: '' }));
     };
 
     // for input value
@@ -36,9 +36,9 @@ const TimeLine_Search = () => {
     };
 
     // for hit the search
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log({ selectValue, inputValue });
+        dispatch(setSearchSelectValue({ selectVal, inputValue }));
     };
 
     return (

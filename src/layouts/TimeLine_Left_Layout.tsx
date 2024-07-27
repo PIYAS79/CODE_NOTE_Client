@@ -5,12 +5,11 @@ import { useAppSelector } from "../redux/hooks"
 
 const TimeLine_Left_Layout = () => {
 
-  const selectValue = useAppSelector(state=>state.timeline.searchSelect_value);
-  // console.log(selectValue);
-  if(selectValue === 'code'){
-    return <TimeLine_All_Codes/>
-  }else{
-    return <TimeLine_All_Users/>
+  const selectValue = useAppSelector(state => state.timeline.selectVal);
+  if (selectValue === 'code') {
+    return <TimeLine_All_Codes />
+  } else {
+    return <TimeLine_All_Users />
   }
 }
 
