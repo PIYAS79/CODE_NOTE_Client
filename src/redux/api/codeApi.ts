@@ -24,6 +24,17 @@ const codeApi = baseApi.injectEndpoints({
             },
             providesTags: ['codes']
         }),
+        // get a single code
+        getSingleCodes: builder.query({
+            query: (cid) => ({
+                url: `/code/${cid}`,
+                method: 'GET',
+            }),
+            transformResponse: (res: any) => {
+                return res.data
+            },
+            providesTags:(cid)=>[{type:'scode',id:cid},'codes'],
+        }),
         // update code api
         updateCode: builder.mutation({
             query: ({data,cid}) => ({
@@ -31,10 +42,18 @@ const codeApi = baseApi.injectEndpoints({
                 method: 'PATCH',
                 body: data
             }),
-            invalidatesTags: ['codes']
+            invalidatesTags: ({cid})=>[{type:'scode',id:cid},'codes']
+        }),
+        // delete code api
+        deleteCode: builder.mutation({
+            query: (cid) => ({
+                url: `code/${cid}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ({cid})=>[{type:'scode',id:cid},'codes']
         }),
     })
 })
 
 
-export const { useCreateCodeMutation, useGetMyAllCodesQuery,useUpdateCodeMutation } = codeApi;
+export const { useCreateCodeMutation, useGetMyAllCodesQuery,useUpdateCodeMutation,useGetSingleCodesQuery,useDeleteCodeMutation } = codeApi;

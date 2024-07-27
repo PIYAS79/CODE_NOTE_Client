@@ -18,23 +18,25 @@ export type Code_Author_Type = {
     fullName:string;
 };
 
+export type Single_Code_Type = {
+    _id: string;
+    title: string;
+    courseCode: string;
+    language: string;
+    code: string;
+    isStar: boolean;
+    author: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+    id: string;
+};
+
 export type Single_Code_Type_Res = {
     success: boolean;
     message: string;
     data: {
-        code: {
-            _id: string;
-            title: string;
-            courseCode: string;
-            language: string;
-            code: string;
-            isStar: boolean;
-            author: string;
-            createdAt: string;
-            updatedAt: string;
-            __v: number;
-            id: string;
-        };
+        code: Single_Code_Type,
         author: Code_Author_Type
     };
 }

@@ -34,7 +34,6 @@ const router = createBrowserRouter([
             },
             {
                 path: 'profile/:cid',
-                loader:({params})=>fetch(`http://localhost:5022/api/v1/code/${params.cid}`),
                 element: <SingleCodePage />
             },
             {

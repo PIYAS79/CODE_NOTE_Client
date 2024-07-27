@@ -22,7 +22,7 @@ const customBaseQuery: BaseQueryFn<FetchArgs, BaseQueryApi, DefinitionType> = as
     let res = await baseQuery(args, api, extraOptions) as any;
     // if status code is 404
     if(res?.error?.status === 404){
-        toast.error(res?.error?.data?.errorTitle)
+        toast.error(res?.error?.data?.errorTitle,{position:'top-center'})
     }
     // if there is any token related issue
     if (res?.error?.status === 401) {
@@ -47,7 +47,7 @@ const customBaseQuery: BaseQueryFn<FetchArgs, BaseQueryApi, DefinitionType> = as
 const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: customBaseQuery,
-    tagTypes:['codes','user'],
+    tagTypes:['codes','scode','user'],
     endpoints: () => ({})
 })
 

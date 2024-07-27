@@ -1,34 +1,48 @@
+import React, { useState, useEffect } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import 'highlight.js/styles/github.css';
 import { CopyOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 import { detectLanguage } from '../utils/detectLanguage';
 
-
-/**
- * No need to find out the lang,
- * cuz its identify during the creation
- */
-
 const SingleCodeField = ({ code }: { code: string }) => {
-    const lang = detectLanguage(code);
-    // console.log(lang);
+    const [lang, setLang] = useState<string | null>(null); // State to hold detected language
 
+    useEffect(() => {
+        // Function to detect language asynchronously
+        const fetchLang = async () => {
+            try {
+                const detectedLang = await detectLanguage(code);
+                // Set detected language once resolved
+                setLang(detectedLang); 
+            } catch (error) {
+                console.error('Error detecting language:', error);
+            }
+        };
 
-    //   success copy modal
+        // Invoke the language detection function
+        fetchLang(); 
+    }, [code]);
+
+    //   Success copy modal
     const success = () => {
         Modal.success({
             content: 'Successfully Code Copied',
         });
     };
+
     const handleCopy = () => {
         navigator.clipboard.writeText(code).then(() => {
-            success()
+            success();
         }).catch((error) => {
             console.error('Failed to copy code:', error);
         });
     };
+
+    if (!lang) {
+        // render a loading state while detecting lang
+        return <div>Loading...</div>; 
+    }
 
     return (
         <div className='codeBox' style={{ position: 'relative' }}>
