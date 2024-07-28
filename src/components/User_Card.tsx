@@ -6,7 +6,7 @@ import { Single_User_Type } from "../interfaces/user.interface"
 const User_Card = ({ data }: { data: Single_User_Type }) => {
 
     return (
-        <NavLink to={`/timeline/${6}`} target="_blank" className="userCard">
+        <NavLink to={`/timeline/${data?._id}`} state={data} className="userCard">
             <Image
                 width={50}
                 height={50}

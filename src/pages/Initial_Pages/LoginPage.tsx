@@ -23,7 +23,7 @@ const LoginPage = () => {
   };
 
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-    const toastId = toast.success('Loading.....');
+    const toastId = toast.loading('Loading.....',{position:'top-center',duration:1000});
     try {
       // send data to login api route
       const data = await loginUserFnc({
@@ -31,7 +31,7 @@ const LoginPage = () => {
         password: values.password
       }).unwrap();
       if (data.success) {
-        toast.success("Successfully Login User", { id: toastId });
+        toast.success("Successfully Login User", { id: toastId,position:'top-center'});
         // decode token by access token  
         const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
         // set user to redux state
@@ -40,7 +40,7 @@ const LoginPage = () => {
         navigate('/profile');
       }
     } catch (err: any) {
-      toast.error(err.message, { id: toastId });
+      toast.error(err.data.errorTitle,{id:toastId,position:'top-center'});
     }
   };
 

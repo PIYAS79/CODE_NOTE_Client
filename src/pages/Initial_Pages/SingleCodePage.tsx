@@ -16,6 +16,7 @@ const SingleCodePage = () => {
     const [deleteCodeFnc]=useDeleteCodeMutation();
     const navigate = useNavigate();
 
+
     const items: MenuProps['items'] = [
         {
             label: `${data?.code?.isStar ? "Mark Un-Star" : "Mark Star"}`,

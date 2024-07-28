@@ -32,10 +32,13 @@ const Profile_Layout = () => {
                     }}
                     onCollapse={(collapsed, type) => {
                         const layoutContainer = document.querySelector('.fullRight');
-                        if (!collapsed) {
-                            console.log(collapsed, "FIREEEEEE TRUE");
-                            layoutContainer!.style.display = 'none';
-                        } else {
+                        // if (!collapsed) {
+                        //     console.log(collapsed, "FIREEEEEE TRUE");
+                        //     layoutContainer!.style.display = 'none';
+                        // } else {
+                        //     layoutContainer!.style.display = 'flex';
+                        // }
+                        if (collapsed) {
                             layoutContainer!.style.display = 'flex';
                         }
                     }}

@@ -8,12 +8,8 @@ import User_Card from "./User_Card"
 const TimeLine_All_Users = () => {
     const { inputval, selectVal } = useAppSelector(state => state.timeline);
     const dispatch = useAppDispatch();
-    console.log({inputval,selectVal});
-
     const { data } = useGetUserQuery({role:selectVal,tag:inputval});
     dispatch(setUsers(data?.result))
-
-
     const users = useAppSelector(state => state.timeline.users)
 
     return (

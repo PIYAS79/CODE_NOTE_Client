@@ -20,7 +20,6 @@ const timelineApi = baseApi.injectEndpoints({
         // get all students 
         getUser: builder.query({
             query: ({role,tag}) => {
-                console.log({role,tag});
                 return {
                     url: `/${role}?select=name,department&search=${tag}`,
                     method: 'GET'
@@ -30,7 +29,16 @@ const timelineApi = baseApi.injectEndpoints({
                 return res.data;
             }
         }),
+        getUserCodes:builder.query({
+            query:({uid})=>({
+                url:`/code/user/${uid}`,
+                method:"GET"
+            }),
+            transformResponse:(res:any)=>{
+                return res.data;
+            }
+        })
     })
 })
 
-export const { useGetCodesQuery, useGetUserQuery } = timelineApi;
+export const { useGetCodesQuery, useGetUserQuery,useGetUserCodesQuery } = timelineApi;
