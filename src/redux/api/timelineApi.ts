@@ -37,8 +37,20 @@ const timelineApi = baseApi.injectEndpoints({
             transformResponse:(res:any)=>{
                 return res.data;
             }
-        })
+        }),
+        // get all students 
+        getMe: builder.query({
+            query: ({role,email}) => {
+                return {
+                    url: `/${role}?email=${email}`,
+                    method: 'GET'
+                }
+            },
+            transformResponse: (res: any) => {
+                return res.data;
+            }
+        }),
     })
 })
 
-export const { useGetCodesQuery, useGetUserQuery,useGetUserCodesQuery } = timelineApi;
+export const { useGetCodesQuery, useGetUserQuery,useGetUserCodesQuery,useGetMeQuery } = timelineApi;

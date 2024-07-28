@@ -3,8 +3,11 @@ import { Layout, Image, Button } from 'antd';
 import Web_Header from './Web_Header';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import Skill_Section from '../components/Skill_Section';
-import { useAppDispatch } from '../redux/hooks';
-import { removeUser } from '../redux/features/authSlice';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { User_Type, removeUser, setMe } from '../redux/features/authSlice';
+import { useGetMeQuery, useGetUserCodesQuery } from '../redux/api/timelineApi';
+import { My_Profile_Data_Type } from '../interfaces/my.interface';
+import find_StarCode_And_MostUsedLang from '../utils/findStarCodeAndMostUsedLang';
 
 const { Sider } = Layout;
 
@@ -12,6 +15,16 @@ const { Sider } = Layout;
 const Profile_Layout = () => {
 
     const dispatch = useAppDispatch();
+    const { email, role } = useAppSelector(state => state.auth.user) as User_Type;
+    const _id = useAppSelector(state => state.auth._id);
+    const { data } = useGetMeQuery({ role: role?.toLowerCase(), email });
+    dispatch(setMe(data?.result[0]));
+    const me = useAppSelector(state => state.auth.me) as My_Profile_Data_Type;
+    const myCodes = useGetUserCodesQuery({ uid: _id });
+    let codesStatus;
+    if (myCodes?.data?.result.length > 0) {
+        codesStatus  = find_StarCode_And_MostUsedLang(myCodes?.data?.result);
+    }
 
     const handleLogoutUser = () => {
         dispatch(removeUser(undefined));
@@ -73,15 +86,27 @@ const Profile_Layout = () => {
                     </div>
                     <div>
                         <div>
-                            <p style={{ paddingLeft: '2em', color: '#474740', fontFamily: 'var(--Wittgenstein)', fontSize: '16px', fontWeight: '700' }}>222-15-6479</p>
-                            <p style={{ paddingLeft: '2em', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>S M Piyas Mahamude Alif</p>
+                            {
+                                me?.user?.role === 'STUDENT' ?
+                                    <div style={{ paddingLeft: '2rem' }}>
+                                        <span style={{ backgroundColor: '#e2751b', color: 'white', padding: '.1rem .5rem', borderRadius: '.5rem' }}>student</span>
+                                        <p style={{ marginTop: '.5rem', color: '#474740', fontFamily: 'var(--Wittgenstein)', fontSize: '16px', fontWeight: '700' }}>{me?.studentId}</p>
+                                    </div>
+                                    :
+                                    <div style={{ paddingLeft: '2rem' }}>
+                                        <span style={{ backgroundColor: '#782000', color: 'white', padding: '.1rem .5rem', borderRadius: '.5rem' }}>faculty</span>
+                                        <p style={{ marginTop: '.5rem', paddingLeft: '2em', color: '#474740', fontFamily: 'var(--Wittgenstein)', fontSize: '16px', fontWeight: '700' }}>{me?.teacherId}</p>
+                                    </div>
+                            }
+                            <p style={{ paddingLeft: '2em', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>{me?.fullName}</p>
                         </div>
                         <div style={{ marginTop: '1.5rem', paddingLeft: '2em' }}>
-                            <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Semester : <span style={{ fontWeight: '200' }}>5</span></p>
-                            <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Department : <span style={{ fontWeight: '200' }}>CSE</span></p>
-                            <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Total Code : <span style={{ fontWeight: '200' }}>39</span></p>
-                            <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Star Code : <span style={{ fontWeight: '200' }}>3</span></p>
-                            <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Most Used Language : <span style={{ fontWeight: '200' }}>C++</span></p>
+                            {/* <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Semester : <span style={{ fontWeight: '200' }}>5</span></p> */}
+                            <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Department : <span style={{ fontWeight: '200' }}>{me?.department}</span></p>
+                            <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Total Code : <span style={{ fontWeight: '200' }}>{myCodes?.data?.meta?.total}</span></p>
+                            <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Star Code : <span style={{ fontWeight: '200' }}>{codesStatus?.totalStarred}</span></p>
+                            <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Most Used Lang : <span style={{ fontWeight: '200' }}>{codesStatus?.mostUsedLanguage}</span></p>
+{/* ----------------------------- Enough for today  ---------------------------- */}
                         </div>
 
                         <div style={{ marginTop: '1.5rem', padding: '0rem 2rem ' }}>
