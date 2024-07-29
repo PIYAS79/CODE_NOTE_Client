@@ -50,7 +50,14 @@ const timelineApi = baseApi.injectEndpoints({
                 return res.data;
             }
         }),
+        updateUser:builder.mutation({
+            query:({role,uid,data})=>({
+                url:`/${role}/${uid}`,
+                body:data,
+                method:'PATCH'
+            })
+        })
     })
 })
 
-export const { useGetCodesQuery, useGetUserQuery,useGetUserCodesQuery,useGetMeQuery } = timelineApi;
+export const { useGetCodesQuery, useGetUserQuery,useGetUserCodesQuery,useGetMeQuery,useUpdateUserMutation } = timelineApi;

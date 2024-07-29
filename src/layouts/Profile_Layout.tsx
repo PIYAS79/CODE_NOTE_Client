@@ -1,4 +1,4 @@
-import { ExclamationCircleOutlined, FieldTimeOutlined, GithubOutlined, HomeOutlined, LinkOutlined, SettingOutlined, StarOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, FieldTimeOutlined, GithubOutlined, HomeOutlined, LinkOutlined, PhoneFilled, SendOutlined, SettingOutlined, StarOutlined } from '@ant-design/icons';
 import { Layout, Image, Button } from 'antd';
 import Web_Header from './Web_Header';
 import { Link, NavLink, Outlet } from 'react-router-dom';
@@ -8,6 +8,9 @@ import { User_Type, removeUser, setMe } from '../redux/features/authSlice';
 import { useGetMeQuery, useGetUserCodesQuery } from '../redux/api/timelineApi';
 import { My_Profile_Data_Type } from '../interfaces/my.interface';
 import find_StarCode_And_MostUsedLang from '../utils/findStarCodeAndMostUsedLang';
+import { FaTelegram } from 'react-icons/fa';
+import { SiCodeforces } from 'react-icons/si';
+import { FaLocationDot } from 'react-icons/fa6';
 
 const { Sider } = Layout;
 
@@ -23,7 +26,7 @@ const Profile_Layout = () => {
     const myCodes = useGetUserCodesQuery({ uid: _id });
     let codesStatus;
     if (myCodes?.data?.result.length > 0) {
-        codesStatus  = find_StarCode_And_MostUsedLang(myCodes?.data?.result);
+        codesStatus = find_StarCode_And_MostUsedLang(myCodes?.data?.result);
     }
 
     const handleLogoutUser = () => {
@@ -95,30 +98,35 @@ const Profile_Layout = () => {
                                     :
                                     <div style={{ paddingLeft: '2rem' }}>
                                         <span style={{ backgroundColor: '#782000', color: 'white', padding: '.1rem .5rem', borderRadius: '.5rem' }}>faculty</span>
-                                        <p style={{ marginTop: '.5rem', paddingLeft: '2em', color: '#474740', fontFamily: 'var(--Wittgenstein)', fontSize: '16px', fontWeight: '700' }}>{me?.teacherId}</p>
+                                        <p style={{ marginTop: '.5rem', color: '#474740', fontFamily: 'var(--Wittgenstein)', fontSize: '16px', fontWeight: '700' }}>{me?.teacherId}</p>
                                     </div>
                             }
                             <p style={{ paddingLeft: '2em', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>{me?.fullName}</p>
                         </div>
-                        <div style={{ marginTop: '1.5rem', paddingLeft: '2em' }}>
+                        <div style={{ marginTop: '1rem', paddingLeft: '2em' }}>
                             {/* <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Semester : <span style={{ fontWeight: '200' }}>5</span></p> */}
-                            <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Department : <span style={{ fontWeight: '200' }}>{me?.department}</span></p>
-                            <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Total Code : <span style={{ fontWeight: '200' }}>{myCodes?.data?.meta?.total}</span></p>
-                            <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Star Code : <span style={{ fontWeight: '200' }}>{codesStatus?.totalStarred}</span></p>
-                            <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Most Used Lang : <span style={{ fontWeight: '200' }}>{codesStatus?.mostUsedLanguage}</span></p>
-{/* ----------------------------- Enough for today  ---------------------------- */}
+                            {me?.department && <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Department : <span style={{ fontWeight: '200' }}>{me?.department}</span></p>}
+                            {myCodes?.data?.meta?.total && <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Total Code : <span style={{ fontWeight: '200' }}>{myCodes?.data?.meta?.total}</span></p>}
+                            <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Star Code : <span style={{ fontWeight: '200' }}> {codesStatus?.totalStarred || 0}</span></p>
+                            {codesStatus?.mostUsedLanguage && <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Most Used Lang : <span style={{ fontWeight: '200' }}>{codesStatus?.mostUsedLanguage}</span></p>}
                         </div>
 
-                        <div style={{ marginTop: '1.5rem', padding: '0rem 2rem ' }}>
+                        <div style={{ marginTop: '1rem', padding: '0rem 2rem ' }}>
                             <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Skills</p>
-                            <Skill_Section />
+                             <Skill_Section />
+                            
                         </div>
 
-                        <div style={{ marginTop: '1.5rem' }}>
-                            <a style={{ display: 'block', paddingLeft: '2em', color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}><LinkOutlined style={{ color: '#004AAD', marginRight: '5px' }} /> Student Portal </a>
-                            <a style={{ display: 'block', paddingLeft: '2em', color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}><GithubOutlined style={{ color: 'gray', marginRight: '5px' }} /> GitHub </a>
-                            <a style={{ paddingLeft: '2em', color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px', display: 'flex', alignItems: 'center', }}>
-                                <img style={{ width: '22px', marginLeft: '-4px', marginRight: '5px' }} src="https://i.ibb.co/5KjDTkn/32px-Stack-Overflow-icon-svg.png" />Stack Overflow</a>
+                        <div style={{ marginTop: '1rem', lineHeight: '3px', fontWeight: '300', paddingLeft: '2em', color: '#474740', fontFamily: 'var(--Wittgenstein)', }}>
+                            {me?.contact?.studentProtal && <a href={me?.contact?.studentProtal} target='_blank' style={{ display: 'block', color: '#474740', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}><LinkOutlined style={{ color: '#004AAD', marginRight: '5px' }} /> Student Portal </a>}
+                            {me?.contact?.github && <a href={me?.contact?.github} target='_blank' style={{ display: 'block', color: '#474740', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}><GithubOutlined style={{ color: 'gray', marginRight: '5px' }} /> GitHub </a>}
+                            {me?.contact?.stackOverflow && <a href={me?.contact?.stackOverflow} target='_blank' style={{ color: '#474740', fontFamily: 'var(--Wittgenstein)', fontSize: '16px', display: 'flex', alignItems: 'center', }}>
+                                <img style={{ width: '22px', marginLeft: '-4px', marginRight: '5px' }} src="https://i.ibb.co/5KjDTkn/32px-Stack-Overflow-icon-svg.png" />Stack Overflow</a>}
+
+                            {me?.contact?.telegram && <a href={me?.contact?.telegram} target='_blank' style={{ display: 'block', color: '#474740', fontSize: '16px' }}><FaTelegram style={{ color: 'gray', marginRight: '5px' }} /> Telegram </a>}
+                            {me?.contact?.codeForces && <a href={me?.contact?.github} target='_blank' style={{ display: 'block', color: '#474740', fontSize: '16px' }}><SiCodeforces style={{ color: 'gray', marginRight: '5px' }} /> CodeForces </a>}
+                            {me?.contact?.address && <a href={me?.contact?.address} target='_blank' style={{ display: 'block', color: '#474740', fontSize: '16px' }}><FaLocationDot style={{ color: 'gray', marginRight: '5px' }} /> {me?.contact?.address} </a>}
+                            {me?.contact?.phone && <a href={me?.contact?.phone} target='_blank' style={{ display: 'block', color: '#474740', fontSize: '16px' }}><PhoneFilled style={{ color: 'gray', marginRight: '5px' }} /> {me?.contact?.phone} </a>}
                         </div>
                         <div style={{ marginTop: '1.5rem', margin: '1.5rem 2rem' }}>
                             <Link to={'/setting'}>

@@ -1,20 +1,44 @@
-import {useState} from 'react'
-import { UploadOutlined } from '@ant-design/icons';
 import type { FormProps } from 'antd';
 import { Button, Select, Form, Input, Upload, Cascader } from 'antd';
 import { Skill_Option, skill_options } from '../../global/skills_options';
-const { SHOW_CHILD } = Cascader;
 import type { CascaderProps } from 'antd';
+import { useAppSelector } from '../../redux/hooks';
+import { useEffect } from 'react';
+import { departments } from '../../global/departments';
+import { useUpdateUserMutation } from '../../redux/api/timelineApi';
+import { toast } from 'sonner';
+
 
 
 const SettingPage = () => {
-  let flattenedArray:[]|string[];
+  const [form] = Form.useForm();
+  let flattenedArray: [] | string[];
+  const { me } = useAppSelector(state => state.auth);
+  const [updateUserFnc] = useUpdateUserMutation();
+
+  useEffect(() => {
+    form.setFieldsValue({
+      f_name: me?.name?.f_name,
+      m_name: me?.name?.m_name,
+      l_name: me?.name?.l_name,
+      id: me?.studentId || me?.teacherId,
+      telegram: me?.contact?.telegram,
+      studentPortal: me?.contact?.studentProtal,
+      address: me?.contact?.address,
+      phone: me?.contact?.phone,
+      stackoverflow: me?.contact?.stackOverflow,
+      github: me?.contact?.github,
+      // upload:me?.user.profileImage
+      department: me?.department,
+      codeForces: me?.contact?.codeForces,
+    });
+  }, [me]);
 
   type FieldType = {
     email?: string;
     password?: string;
     semester?: number;
-    select?: string,
+    department?: string,
     f_name?: string,
     m_name?: string,
     l_name?: string,
@@ -25,14 +49,44 @@ const SettingPage = () => {
     phone?: string,
     stackoverflow?: string,
     github?: string,
+    codeForces?: string
   };
   const onChange: CascaderProps<Skill_Option, 'icon', true>['onChange'] = (value) => {
     flattenedArray = value.flat();
-};
+  };
 
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values);
-    console.log(flattenedArray);
+  const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+
+    const udpatedData: any = {
+      name: {
+        f_name: values.f_name,
+        m_name: values.m_name,
+        l_name: values.l_name
+      },
+      department: values.department,
+      skills: flattenedArray,
+      contact: {
+        studentProtal: values.studentPortal,
+        telegram: values.telegram,
+        github: values.github,
+        stackOverflow: values.stackoverflow,
+        codeForces: values.codeForces,
+        phone: values.phone,
+        address: values.address,
+      }
+    }
+    if (me?.user?.role === 'STUDENT') {
+      udpatedData.studentId = values.id
+    } else {
+      udpatedData.teacherId = values.id
+    }
+    const toastId = toast.loading('Profile Updating...', { position: 'top-center' });
+    try {
+      await updateUserFnc({ role: (me?.user?.role)?.toLowerCase(), uid: me?._id, data: udpatedData })
+      toast.success("Profile is successfully updated !", { id: toastId, position: 'top-center' });
+    } catch (err) {
+      toast.error("Not updated due to server related error !", { position: 'top-center', id: toastId })
+    }
   };
 
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
@@ -45,12 +99,13 @@ const SettingPage = () => {
       <div style={{ backgroundColor: '#F4EEE2', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
         <h1 className='web-color' style={{ fontFamily: 'var(--Wittgenstein)' }}>CODE NOTE</h1>
-        <small style={{ fontFamily: 'var(--Playwrite)', marginBottom: '2rem' }}>Easy, Perfect & Instant Note</small>
+        <small style={{ fontFamily: 'var(--Playwrite)', margin: '-.4rem 0rem 1rem 0rem' }}>Easy, Perfect & Instant Note</small>
         <h2 style={{ fontFamily: 'var(--Wittgenstein)', marginBottom: '1rem', color: '#4a4a4a' }}>Change Data</h2>
 
 
 
         <Form
+          form={form}
           name="basic"
           labelCol={{ span: 0 }}
           wrapperCol={{ span: 100 }}
@@ -93,7 +148,7 @@ const SettingPage = () => {
             <Input placeholder='last name' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
           </Form.Item>
 
-          {/* ------------------- profile picture field ------------------- */}
+          {/* ------------------- profile picture field -------------------
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Form.Item
               name="upload"
@@ -107,18 +162,12 @@ const SettingPage = () => {
               </Upload>
             </Form.Item>
             <img width={80} height={80} style={{ objectFit: 'cover', borderRadius: '.5rem', marginBottom: '.5rem' }} src="https://i.ibb.co/HBtgY1B/fat-thor.webp" alt="" />
-          </div>
+          </div> */}
           {/* ------------------- id field ------------------- */}
           <Form.Item<FieldType>
             name="id"
           >
             <Input placeholder='faculty / student id' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
-          </Form.Item>
-          {/* ------------------- semester field ------------------- */}
-          <Form.Item<FieldType>
-            name="semester"
-          >
-            <Input placeholder='semester' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
           </Form.Item>
           {/* ------------------- telegram field ------------------- */}
           <Form.Item<FieldType>
@@ -150,6 +199,12 @@ const SettingPage = () => {
           >
             <Input placeholder='phone' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
           </Form.Item>
+          {/* ------------------- codeForces field ------------------- */}
+          <Form.Item<FieldType>
+            name="codeForces"
+          >
+            <Input placeholder='codeForces ' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
+          </Form.Item>
           {/* ------------------- address field ------------------- */}
           <Form.Item<FieldType>
             name="address"
@@ -166,17 +221,22 @@ const SettingPage = () => {
             showCheckedStrategy="SHOW_CHILD"
             placeholder='add skills'
           />
+          <small>Ur current skills : </small><br />
+          [
+          {
+            me?.skills.map((one, i) => <small key={i}>{one},</small>)
+          }]
+
 
 
           {/* ------------------- department field (always at the end) ------------------- */}
           <Form.Item label="Select"
-            name="select"
+            name="department"
           >
             <Select style={{ background: 'transparent', outline: 'none', border: 'none' }} placeholder="Select Department">
-              <Select.Option value="demo1">Demo</Select.Option>
-              <Select.Option value="demo2">Demo</Select.Option>
-              <Select.Option value="demo3">Demo</Select.Option>
-              <Select.Option value="demo4">Demo</Select.Option>
+              {
+                departments.map((one, i) => <Select.Option key={i} value={one}>{one}</Select.Option>)
+              }
             </Select>
           </Form.Item>
 
