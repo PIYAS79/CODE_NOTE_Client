@@ -14,7 +14,6 @@ const LoginPage = () => {
   const [loginUserFnc, { error }] = useLoginUserMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  console.log(error);
 
   type FieldType = {
     email?: string;
@@ -35,7 +34,7 @@ const LoginPage = () => {
         // decode token by access token  
         const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
         // set user to redux state
-        dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.user._id }));
+        dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.user._id,me:null }));
         // after successfully login , then navigate to prifile route
         navigate('/profile');
       }

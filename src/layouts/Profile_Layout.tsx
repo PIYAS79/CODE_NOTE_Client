@@ -134,7 +134,12 @@ const Profile_Layout = () => {
                                     Edit Profile
                                 </Button>
                             </Link>
-                            <Button onClick={handleLogoutUser} className='web-button-logout' type="primary" style={{ marginTop: '1rem', border: 'none', width: '100%', padding: '0rem 3rem' }}>
+                            <Link to={'/security'}>
+                                <Button className='web-button-reverse' type="primary" style={{ marginTop: '.5rem',border: 'none', width: '100%', padding: '0rem 3rem' }}>
+                                    Edit Security
+                                </Button>
+                            </Link>
+                            <Button onClick={handleLogoutUser} className='web-button-logout' type="primary" style={{ marginTop: '.5rem', border: 'none', width: '100%', padding: '0rem 3rem' }}>
                                 LOGOUT
                             </Button>
                         </div>

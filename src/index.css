@@ -24,6 +24,17 @@
     background: rgb(120, 32, 0);
     background: linear-gradient(90deg, rgba(120, 32, 0, 1) 25%, rgba(255, 135, 37, 1) 90%);
 }
+.web-button-reverse {
+    /* background: rgb(0, 61, 120);
+    background: linear-gradient(90deg, rgba(0, 61, 120, 1) 25%, rgba(37, 206, 255, 1) 90%); */
+    background: rgb(120, 32, 0);
+    background: linear-gradient(210deg, rgba(120, 32, 0, 1) 25%, rgba(255, 135, 37, 1) 90%);
+}
+.web-button-reverse:hover {
+    background: rgb(120, 32, 0) !important;
+    background: linear-gradient(90deg, rgba(120, 32, 0, 1) 25%, rgb(226, 117, 27) 90%) !important;
+
+}
 
 .web-button-logout {
     background: rgb(196, 0, 0);

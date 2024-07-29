@@ -1,5 +1,5 @@
 import type { FormProps } from 'antd';
-import { Button, Select, Form, Input, Upload, Cascader } from 'antd';
+import { Button, Select, Form, Input, Cascader } from 'antd';
 import { Skill_Option, skill_options } from '../../global/skills_options';
 import type { CascaderProps } from 'antd';
 import { useAppSelector } from '../../redux/hooks';
@@ -148,21 +148,7 @@ const SettingPage = () => {
             <Input placeholder='last name' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
           </Form.Item>
 
-          {/* ------------------- profile picture field -------------------
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Form.Item
-              name="upload"
-              label="Upload"
-              valuePropName="fileList"
-              // getValueFromEvent={normFile}
-              extra="Upload Profile Picture"
-            >
-              <Upload name="logo" action="/upload.do" listType="picture">
-                <Button style={{ backgroundColor: 'transparent' }} icon={<UploadOutlined />}>Click to upload</Button>
-              </Upload>
-            </Form.Item>
-            <img width={80} height={80} style={{ objectFit: 'cover', borderRadius: '.5rem', marginBottom: '.5rem' }} src="https://i.ibb.co/HBtgY1B/fat-thor.webp" alt="" />
-          </div> */}
+          
           {/* ------------------- id field ------------------- */}
           <Form.Item<FieldType>
             name="id"

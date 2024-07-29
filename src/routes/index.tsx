@@ -11,6 +11,7 @@ import SingleCodePage from "../pages/Initial_Pages/SingleCodePage";
 import Profile_View_Page from "../pages/Initial_Pages/Profile_View_Page";
 import SendEmail_Page from "../pages/Others/SendEmail_Page";
 import PrivateRoutes from "../pages/Others/PrivateRoutes";
+import Security_Page from "../pages/Initial_Pages/Security_Page";
 
 
 
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
             {
                 path: 'setting',
                 element: <SettingPage />
+            },
+            {
+                path: 'security',
+                element: <Security_Page />
             },
             {
                 path: 'star',
