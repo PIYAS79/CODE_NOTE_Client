@@ -33,16 +33,16 @@ const codeApi = baseApi.injectEndpoints({
             transformResponse: (res: any) => {
                 return res.data
             },
-            providesTags:(cid)=>[{type:'scode',id:cid},'codes'],
+            providesTags: (cid) => [{ type: 'scode', id: cid }, 'codes'],
         }),
         // update code api
         updateCode: builder.mutation({
-            query: ({data,cid}) => ({
+            query: ({ data, cid }) => ({
                 url: `code/${cid}`,
                 method: 'PATCH',
                 body: data
             }),
-            invalidatesTags: ({cid})=>[{type:'scode',id:cid},'codes']
+            invalidatesTags: ({ cid }) => [{ type: 'scode', id: cid }, 'codes', 'updateCode']
         }),
         // delete code api
         deleteCode: builder.mutation({
@@ -50,10 +50,17 @@ const codeApi = baseApi.injectEndpoints({
                 url: `code/${cid}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: ({cid})=>[{type:'scode',id:cid},'codes']
+            invalidatesTags: ({ cid }) => [{ type: 'scode', id: cid }, 'codes']
         }),
+        getUserStarCodes: builder.query({
+            query: ({ uid }) => ({
+                url: `/code/star/${uid}`,
+                method: "GET",
+            }),
+            providesTags: ['updateCode']
+        })
     })
 })
 
 
-export const { useCreateCodeMutation, useGetMyAllCodesQuery,useUpdateCodeMutation,useGetSingleCodesQuery,useDeleteCodeMutation } = codeApi;
+export const { useCreateCodeMutation, useGetMyAllCodesQuery, useUpdateCodeMutation, useGetSingleCodesQuery, useDeleteCodeMutation,useGetUserStarCodesQuery } = codeApi;

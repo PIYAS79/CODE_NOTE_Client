@@ -4,7 +4,7 @@ import { convertDateFormat } from "../utils/convertDateFormat"
 import { useAppSelector } from "../redux/hooks"
 
 
-const AuthorDetails = ({ author }: { author: Code_Author_Type }) => {
+const AuthorDetails = ({ author,authorPP}: { author: Code_Author_Type,authorPP:string }) => {
 
     const userData = useAppSelector(state => state.auth.user);
 
@@ -17,7 +17,7 @@ const AuthorDetails = ({ author }: { author: Code_Author_Type }) => {
                     borderRadius: '50%',
                     objectFit: 'cover',
                 }}
-                src="https://i.ibb.co/ZcPTCkG/Screenshot-2023-12-02-225247.png"
+                src={authorPP?authorPP:"../../assets/Profile.jpg"}
             />
 
             <div style={{ margin: '1rem 0rem .5rem 0rem', fontWeight: '600', fontFamily: 'var(--Wittgenstein)' }}>

@@ -26,7 +26,7 @@ const Profile_View_Page = () => {
             borderRadius: '50%',
             objectFit: 'cover',
           }}
-          src="https://i.ibb.co/ZcPTCkG/Screenshot-2023-12-02-225247.png"
+          src={authorDetails?.user?.profileImage?authorDetails?.user?.profileImage: "../../../assets/Profile.jpg"}
         />
         {authorDetails?.user?.role === 'STUDENT' ?
           <p style={{ backgroundColor: '#e2751b',margin:'1rem 0rem .5rem 0rem', fontWeight: '100', color: 'white', padding: '0rem .5rem', borderRadius: '.5rem' }}>student</p>

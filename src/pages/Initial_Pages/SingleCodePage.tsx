@@ -2,20 +2,21 @@ import SingleCodeField from "../../components/SingleCodeField"
 import AuthorDetails from "../../components/AuthorDetails"
 import { Button, Dropdown, MenuProps, Space, message } from "antd"
 import { useNavigate, useParams } from "react-router-dom";
-import { DeleteOutlined, DownOutlined, EditOutlined, StarFilled, StarOutlined, UserOutlined } from "@ant-design/icons";
+import { DeleteOutlined, DownOutlined, StarOutlined } from "@ant-design/icons";
 import { convertDateFormat } from "../../utils/convertDateFormat";
 import { useDeleteCodeMutation, useGetSingleCodesQuery, useUpdateCodeMutation } from "../../redux/api/codeApi";
 import UpdateCodeModal from "../../components/MarkStarModal";
+import { useAppSelector } from "../../redux/hooks";
 
 
 
 const SingleCodePage = () => {
     const params = useParams();
     const { data } = useGetSingleCodesQuery(params.cid);
+    const userId = useAppSelector(state=>state.auth._id);
     const [updateCodeFnc] = useUpdateCodeMutation();
     const [deleteCodeFnc]=useDeleteCodeMutation();
     const navigate = useNavigate();
-
 
     const items: MenuProps['items'] = [
         {
@@ -30,7 +31,6 @@ const SingleCodePage = () => {
             danger: true,
         },
     ];
-
 
     const handleMenuClick: MenuProps['onClick'] = async (e) => {
         if (e.key === 'star') {
@@ -48,13 +48,13 @@ const SingleCodePage = () => {
         onClick: handleMenuClick,
     };
 
-
     return (
         <div className="codeWrapper" >
             <div className="codeLeft" style={{ lineHeight: '5px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <p style={{ fontFamily: 'var(--Wittgenstein)', margin: '1rem 0rem 1.5rem 0rem', color: '#4a4a4a', fontSize: '1.2rem' }}>Title : <span style={{ fontWeight: "bold" }}>{data?.code?.title}</span></p>
-                    <div style={{ marginLeft: 'auto' }}>
+                    {
+                        data?.code?.author === userId && <div style={{ marginLeft: 'auto' }}>
                         <Dropdown menu={menuProps}>
                             <Button style={{ border: '1px solid #782000s' }}>
                                 <Space>
@@ -64,8 +64,9 @@ const SingleCodePage = () => {
                             </Button>
                         </Dropdown>
                     </div>
+                    }
                     <div style={{ marginLeft: '1.2rem', backgroundColor: 'gray', padding: '0rem', borderRadius: '.5rem', color: 'white' }}>
-                        {data?.code ? <UpdateCodeModal codeData={data?.code} /> : <div></div>}
+                        {data?.code && data?.code?.author === userId ? <UpdateCodeModal codeData={data?.code} /> : <div></div>}
                     </div>
                 </div>
                 <p style={{ fontFamily: 'var(--Wittgenstein)', marginBottom: '1rem', color: '#4a4a4a' }}>Course Code : <span style={{ fontWeight: "bold" }}>{data?.code?.courseCode}</span></p>
@@ -77,7 +78,7 @@ const SingleCodePage = () => {
                 {data?.code ? <SingleCodeField code={data?.code?.code} />:<div></div>}
             </div>
             <div className="codeRight">
-                {data?.author?<AuthorDetails author={data?.author} />:<div></div>}
+                {data?.author?<AuthorDetails author={data?.author} authorPP={data?.authorPP} />:<div></div>}
             </div>
         </div>
     )

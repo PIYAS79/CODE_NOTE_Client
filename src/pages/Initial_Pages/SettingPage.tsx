@@ -102,8 +102,6 @@ const SettingPage = () => {
         <small style={{ fontFamily: 'var(--Playwrite)', margin: '-.4rem 0rem 1rem 0rem' }}>Easy, Perfect & Instant Note</small>
         <h2 style={{ fontFamily: 'var(--Wittgenstein)', marginBottom: '1rem', color: '#4a4a4a' }}>Change Data</h2>
 
-
-
         <Form
           form={form}
           name="basic"

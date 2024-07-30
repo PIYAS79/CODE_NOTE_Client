@@ -14,7 +14,7 @@ const User_Card = ({ data }: { data: Single_User_Type }) => {
                     borderRadius: '50%',
                     objectFit: 'cover',
                 }}
-                src="https://i.ibb.co/ZcPTCkG/Screenshot-2023-12-02-225247.png"
+                src={data?.user?.profileImage? data?.user?.profileImage:"../../assets/Profile.jpg"}
             />
             <div>
                 <span style={{ backgroundColor: 'olive', color: 'white', marginRight: '.3rem', padding: '0rem .5rem', borderRadius: '.2rem' }}>{data.department}</span>

@@ -16,6 +16,8 @@ export type Code_Author_Type = {
     __v: number;
     id: string;
     fullName:string;
+    profileImage:string;
+    role:string
 };
 
 export type Single_Code_Type = {
