@@ -46,6 +46,7 @@ const timelineApi = baseApi.injectEndpoints({
                     method: 'GET'
                 }
             },
+            providesTags:['me'],
             transformResponse: (res: any) => {
                 return res.data;
             }

@@ -30,14 +30,23 @@ const authApi = baseApi.injectEndpoints({
                 body: data
             })
         }),
-        changePassword:builder.mutation({
-            query:({data})=>({
-                url:'/auth/change',
-                method:'PATCH',
-                body:data
+        changePassword: builder.mutation({
+            query: ({ data }) => ({
+                url: '/auth/change',
+                method: 'PATCH',
+                body: data
             })
+        }),
+        uploadProfilePicture: builder.mutation({
+            query: ({ data, email }) => ({
+                url: `/user/profilepic?email=${email}`,
+                method: "PATCH",
+                body: data,
+                formData: true
+            }),
+            invalidatesTags:['me']
         })
     })
 })
 
-export const { useCreateUserMutation, useLoginUserMutation,useChangePasswordMutation } = authApi;
+export const { useCreateUserMutation, useLoginUserMutation, useChangePasswordMutation, useUploadProfilePictureMutation } = authApi;

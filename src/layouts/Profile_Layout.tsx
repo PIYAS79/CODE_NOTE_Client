@@ -1,4 +1,5 @@
-import { ExclamationCircleOutlined, FieldTimeOutlined, GithubOutlined, HomeOutlined, LinkOutlined, PhoneFilled, SendOutlined, SettingOutlined, StarOutlined } from '@ant-design/icons';
+import { useEffect } from 'react';
+import { ExclamationCircleOutlined, FieldTimeOutlined, GithubOutlined, HomeOutlined, LinkOutlined, PhoneFilled, SettingOutlined, StarOutlined } from '@ant-design/icons';
 import { Layout, Image, Button } from 'antd';
 import Web_Header from './Web_Header';
 import { Link, NavLink, Outlet } from 'react-router-dom';
@@ -20,8 +21,12 @@ const Profile_Layout = () => {
     const dispatch = useAppDispatch();
     const { email, role } = useAppSelector(state => state.auth.user) as User_Type;
     const _id = useAppSelector(state => state.auth._id);
-    const { data } = useGetMeQuery({ role: role?.toLowerCase(), email });
-    dispatch(setMe(data?.result[0]));
+    const { data } = useGetMeQuery({ role: role?.toLowerCase(), email })
+    useEffect(() => {
+        dispatch(setMe(data?.result[0]));
+    }, [data]);
+
+
     const me = useAppSelector(state => state.auth.me) as My_Profile_Data_Type;
     const myCodes = useGetUserCodesQuery({ uid: _id });
     let codesStatus;
@@ -44,16 +49,10 @@ const Profile_Layout = () => {
                     breakpoint="lg"
                     collapsedWidth="0"
                     onBreakpoint={(broken) => {
-                        console.log(broken);
+                        // console.log(broken);
                     }}
                     onCollapse={(collapsed, type) => {
                         const layoutContainer = document.querySelector('.fullRight');
-                        // if (!collapsed) {
-                        //     console.log(collapsed, "FIREEEEEE TRUE");
-                        //     layoutContainer!.style.display = 'none';
-                        // } else {
-                        //     layoutContainer!.style.display = 'flex';
-                        // }
                         if (collapsed) {
                             layoutContainer!.style.display = 'flex';
                         }
@@ -71,7 +70,7 @@ const Profile_Layout = () => {
                                     borderRadius: '50%',
                                     objectFit: 'cover',
                                 }}
-                                src="https://i.ibb.co/ZcPTCkG/Screenshot-2023-12-02-225247.png"
+                                src={me?.user?.profileImage ? me?.user?.profileImage : '../../assets/Profile.jpg'}
                             />
                             <img
                                 className="small-float-image"
@@ -113,8 +112,8 @@ const Profile_Layout = () => {
 
                         <div style={{ marginTop: '1rem', padding: '0rem 2rem ' }}>
                             <p style={{ color: '#474740', fontWeight: '700', fontFamily: 'var(--Wittgenstein)', fontSize: '16px' }}>Skills</p>
-                             <Skill_Section />
-                            
+                            <Skill_Section />
+
                         </div>
 
                         <div style={{ marginTop: '1rem', lineHeight: '3px', fontWeight: '300', paddingLeft: '2em', color: '#474740', fontFamily: 'var(--Wittgenstein)', }}>
@@ -135,7 +134,7 @@ const Profile_Layout = () => {
                                 </Button>
                             </Link>
                             <Link to={'/security'}>
-                                <Button className='web-button-reverse' type="primary" style={{ marginTop: '.5rem',border: 'none', width: '100%', padding: '0rem 3rem' }}>
+                                <Button className='web-button-reverse' type="primary" style={{ marginTop: '.5rem', border: 'none', width: '100%', padding: '0rem 3rem' }}>
                                     Edit Security
                                 </Button>
                             </Link>
