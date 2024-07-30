@@ -10,8 +10,6 @@ const StarPage = () => {
   const user_id = useAppSelector(state => state.auth._id);
   const { data } = useGetUserStarCodesQuery({uid:user_id});
 
-  console.log(data?.data);
-
   return (
     <div>
       <div style={{ margin: '24px' }}>

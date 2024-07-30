@@ -56,7 +56,8 @@ const timelineApi = baseApi.injectEndpoints({
                 url:`/${role}/${uid}`,
                 body:data,
                 method:'PATCH'
-            })
+            }),
+            invalidatesTags:['me']
         })
     })
 })
