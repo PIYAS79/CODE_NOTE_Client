@@ -1,3 +1,7 @@
+import { GiPlaneWing } from "react-icons/gi"
+import Stack_Receive_Req_Card from "../../components/Stack_Receive_Req_Card"
+import Stack_Send_Req_Card from "../../components/Stack_Send_Req_Card"
+import { MdCallReceived } from "react-icons/md"
 
 const StackPage = () => {
     return (
@@ -6,12 +10,27 @@ const StackPage = () => {
             <small style={{ fontFamily: 'var(--Playwrite)', margin: '-.4rem 0rem .5rem 0rem' }}>Easy, Perfect & Instant Note</small>
             <h2 style={{ fontFamily: 'var(--Wittgenstein)', marginBottom: '1rem', color: '#4a4a4a' }}>Your_STACK_Status</h2>
 
-
-
             {/* main content start from here  */}
-            <div style={{display:'flex',justifyContent:'space-between',width:'100%'}}>
-                <div style={{background:'red',width:'100%',padding:'1rem'}}>left</div>
-                <div style={{background:'green',width:'100%',padding:'1rem'}}>right</div>
+            <div className="stackWrppaer">
+                <div style={{ padding: '1rem' }}>
+                    <p style={{ textAlign: 'center', fontSize: '1rem', fontWeight: '600', fontFamily: 'var(--Wittgenstein)', marginBottom: '.5rem', color: '#4a4a4a' }}>Send Request <MdCallReceived style={{rotate:'180deg',color:'tomato'}}/></p>
+                    <Stack_Send_Req_Card />
+                    <Stack_Send_Req_Card />
+                    <Stack_Send_Req_Card />
+                    <Stack_Send_Req_Card />
+                    <Stack_Send_Req_Card />
+                    <Stack_Send_Req_Card />
+                    <Stack_Send_Req_Card />
+                    <Stack_Send_Req_Card />
+                </div>
+                <div style={{ padding: '1rem' }}>
+                    <p style={{ textAlign: 'center', fontSize: '1rem', fontWeight: '600', fontFamily: 'var(--Wittgenstein)', marginBottom: '.5rem', color: '#4a4a4a' }}>Received Request <MdCallReceived style={{color:'tomato'}}/></p>
+                    <Stack_Receive_Req_Card />
+                    <Stack_Receive_Req_Card />
+                    <Stack_Receive_Req_Card />
+                    <Stack_Receive_Req_Card />
+                    <Stack_Receive_Req_Card />
+                </div>
             </div>
 
         </div>
