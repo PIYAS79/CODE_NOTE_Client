@@ -78,7 +78,7 @@ const SingleCodePage = () => {
                 {data?.code ? <SingleCodeField code={data?.code?.code} />:<div></div>}
             </div>
             <div className="codeRight">
-                {data?.author?<AuthorDetails author={data?.author} authorPP={data?.authorPP} />:<div></div>}
+                {data?.author?<AuthorDetails author={data?.author} authorPP={data?.authorPP} cid={data?.code?._id} cauth={data?.code?.author} />:<div></div>}
             </div>
         </div>
     )

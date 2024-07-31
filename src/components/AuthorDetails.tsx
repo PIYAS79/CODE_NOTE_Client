@@ -2,11 +2,37 @@ import { Button, Image } from "antd"
 import { Code_Author_Type } from "../interfaces/singleCode.interface"
 import { convertDateFormat } from "../utils/convertDateFormat"
 import { useAppSelector } from "../redux/hooks"
+import { useCreateStackReqMutation } from "../redux/api/stackApi"
+import { toast } from "sonner"
 
 
-const AuthorDetails = ({ author,authorPP}: { author: Code_Author_Type,authorPP:string }) => {
+const AuthorDetails = ({ author, authorPP, cid, cauth }: { author: Code_Author_Type, authorPP: string, cid: string, cauth: string }) => {
 
     const userData = useAppSelector(state => state.auth.user);
+    const from = useAppSelector(state => state.auth._id);
+    const [sendReqFnc] = useCreateStackReqMutation();
+
+
+    const handleClickSendReq = async () => {
+        const toastId = toast.loading('sending request...', { position: 'top-center' });
+        try {
+            const data = {
+                from,
+                author: cauth,
+                code_id: cid
+            }
+            const res:any = await sendReqFnc({ data });
+            if(res?.data?.success){
+                toast.success("Successfully Send Code Req !", { position: 'top-center', id: toastId });
+            }
+            if(res?.error?.status==409){
+                toast.error(res?.error?.data?.errorTitle, { position: 'top-center', id: toastId });
+            }
+            // success message
+        } catch (err) {
+            toast.error('There is a server side error !', { position: 'top-center', id: toastId });
+        }
+    }
 
     return (
         <>
@@ -17,7 +43,7 @@ const AuthorDetails = ({ author,authorPP}: { author: Code_Author_Type,authorPP:s
                     borderRadius: '50%',
                     objectFit: 'cover',
                 }}
-                src={authorPP?authorPP:"../../assets/Profile.jpg"}
+                src={authorPP ? authorPP : "../../assets/Profile.jpg"}
             />
 
             <div style={{ margin: '1rem 0rem .5rem 0rem', fontWeight: '600', fontFamily: 'var(--Wittgenstein)' }}>
@@ -35,9 +61,9 @@ const AuthorDetails = ({ author,authorPP}: { author: Code_Author_Type,authorPP:s
             <p style={{ fontWeight: '400' }}>Since : {convertDateFormat(author?.createdAt)}</p>
             {
                 author?.email === userData?.email ?
-                    <small style={{border:'1px solid tomato',padding:'.15rem .8rem',marginTop:'.5rem',borderRadius:'.5rem',color:'#782000'}}>Your Code </small>
+                    <small style={{ border: '1px solid tomato', padding: '.15rem .8rem', marginTop: '.5rem', borderRadius: '.5rem', color: '#782000' }}>Your Code </small>
                     :
-                    <Button className="web-button" style={{ marginTop: '1rem', border: 'none', color: 'white' }}>Send Code Request</Button>
+                    <Button onClick={handleClickSendReq} className="web-button" style={{ marginTop: '1rem', border: 'none', color: 'white' }}>Send Code Request</Button>
             }
         </>
     )
