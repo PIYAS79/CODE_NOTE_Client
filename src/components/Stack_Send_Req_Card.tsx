@@ -1,45 +1,37 @@
-import { DeleteOutlined, DownOutlined, StarOutlined } from "@ant-design/icons"
-import { Button, Dropdown, Image, MenuProps, Space } from "antd"
+import { Button, Image, Modal } from "antd"
+import { Single_Stack_Data } from "../global/stack.interface";
+import { convertDateFormat } from "../utils/convertDateFormat";
+import { useState } from "react";
+import { useCancelStackSendReqMutation } from "../redux/api/stackApi";
+import { toast } from "sonner";
 
 
-const Stack_Send_Req_Card = () => {
+const Stack_Send_Req_Card = ({ data }: { data: Single_Stack_Data }) => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [cancelStackReqFnc] = useCancelStackSendReqMutation();
 
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
 
-    const items: MenuProps['items'] = [
-        {
-            label: `star`,
-            key: 'star',
-            icon: <StarOutlined />,
-        },
-        {
-            label: 'Delete Code',
-            key: 'delete',
-            icon: <DeleteOutlined />,
-            danger: true,
-        },
-    ];
-
-    const handleMenuClick: MenuProps['onClick'] = async (e) => {
-        if (e.key === 'star') {
-
-        } else if (e.key === 'delete') {
-
+    const handleOk = async () => {
+        const toastId = toast.loading('Deleting Code Request...', { position: 'top-center', duration: 2000 });
+        try {
+            const res = await cancelStackReqFnc({ sid: data?._id });
+            if (res.data) {
+                toast.success("Successfully Delete Code Req !", { position: 'top-center', id: toastId, duration: 2000 });
+                setIsModalVisible(false);
+            } else {
+                toast.error('There is a server side error !', { position: 'top-center', id: toastId, duration: 2000 });
+            }
+        } catch (err) {
+            toast.error('There is a server side error !', { position: 'top-center', id: toastId, duration: 2000 });
         }
     };
 
-    const menuProps = {
-        items,
-        onClick: handleMenuClick,
+    const handleCancel = () => {
+        setIsModalVisible(false);
     };
-
-
-
-
-
-
-
-
-
 
 
 
@@ -54,15 +46,28 @@ const Stack_Send_Req_Card = () => {
                         borderRadius: '50%',
                         objectFit: 'cover',
                     }}
-                    src="../../assets/Profile.jpg"
+                    src={data?.author_pp ? data?.author_pp : "../../assets/Profile.jpg"}
                 />
-                <Button className="declineBtn" style={{ border: 'none', background: 'rgb(194, 0, 0)', color: 'white', outline: 'none' }} >
+                {/* <Button className="declineBtn" style={{ border: 'none', background: 'rgb(194, 0, 0)', color: 'white', outline: 'none' }} >
+                    Declined
+                </Button> */}
+                <Button onClick={showModal} style={{ border: 'none', background: 'rgb(194, 0, 0)', color: 'white', outline: 'none' }}>
                     Declined
                 </Button>
+                <Modal
+                    title="Confirm Deletion"
+                    open={isModalVisible}
+                    onOk={handleOk}
+                    onCancel={handleCancel}
+                    okText="Yes, Delete"
+                    cancelText="No, Cancel"
+                >
+                    <p>Are you sure you want to delete this Request?</p>
+                </Modal>
 
             </div>
-            <p style={{ marginTop: '.2rem' }}>To : User FUll Name</p>
-            <p>Create Req At 12 Dec 2024</p>
+            <p style={{ marginTop: '.2rem' }}>To, {data?.author_name}</p>
+            <p>Create Req At {convertDateFormat(data?.createdAt)}</p>
         </div>
     )
 }

@@ -7,6 +7,7 @@ import { toast } from "sonner"
 
 
 const AuthorDetails = ({ author, authorPP, cid, cauth }: { author: Code_Author_Type, authorPP: string, cid: string, cauth: string }) => {
+    const me = useAppSelector(state => state.auth.me);
 
     const userData = useAppSelector(state => state.auth.user);
     const from = useAppSelector(state => state.auth._id);
@@ -14,23 +15,27 @@ const AuthorDetails = ({ author, authorPP, cid, cauth }: { author: Code_Author_T
 
 
     const handleClickSendReq = async () => {
-        const toastId = toast.loading('sending request...', { position: 'top-center' });
+        const toastId = toast.loading('sending request...', { position: 'top-center', duration: 2000 });
         try {
             const data = {
                 from,
                 author: cauth,
-                code_id: cid
+                code_id: cid,
+                author_name: author.fullName,
+                author_pp: authorPP || '',
+                sender_name: me?.fullName,
+                sender_pp: me?.user?.profileImage || '',
             }
-            const res:any = await sendReqFnc({ data });
-            if(res?.data?.success){
-                toast.success("Successfully Send Code Req !", { position: 'top-center', id: toastId });
+            const res: any = await sendReqFnc({ data });
+            if (res?.data?.success) {
+                toast.success("Successfully Send Code Req !", { position: 'top-center', id: toastId, duration: 2000 });
             }
-            if(res?.error?.status==409){
-                toast.error(res?.error?.data?.errorTitle, { position: 'top-center', id: toastId });
+            if (res?.error?.status == 409) {
+                toast.error(res?.error?.data?.errorTitle, { position: 'top-center', id: toastId, duration: 2000 });
             }
             // success message
         } catch (err) {
-            toast.error('There is a server side error !', { position: 'top-center', id: toastId });
+            toast.error('There is a server side error !', { position: 'top-center', id: toastId, duration: 2000 });
         }
     }
 

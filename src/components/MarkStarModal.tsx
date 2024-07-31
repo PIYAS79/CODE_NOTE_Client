@@ -12,7 +12,6 @@ const UpdateCodeModal = ({ codeData }: { codeData: Single_Code_Type }) => {
 
     const [updateCodeFnc] = useUpdateCodeMutation();
 
-
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => {
@@ -22,7 +21,6 @@ const UpdateCodeModal = ({ codeData }: { codeData: Single_Code_Type }) => {
     const handleOk = async () => {
         setIsModalOpen(false);
         const detectLang = detectLanguage(code);
-        console.log({detectLang});
         const data = await updateCodeFnc({
             data: {
                 title, courseCode, code, language: detectLang

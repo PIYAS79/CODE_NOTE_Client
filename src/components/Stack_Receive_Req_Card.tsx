@@ -1,12 +1,17 @@
-import { DeleteOutlined, DownOutlined, RightCircleFilled, StarOutlined } from "@ant-design/icons"
+import { DeleteOutlined, DownOutlined } from "@ant-design/icons"
 import { Button, Dropdown, Image, MenuProps, Space } from "antd"
 import { FcCheckmark } from "react-icons/fc";
+import { useReceiveStackReqQuery, useStackReqDecisionMutation } from "../redux/api/stackApi";
+import { useAppSelector } from "../redux/hooks";
+import { Single_Stack_Data } from "../global/stack.interface";
+import { convertDateFormat } from "../utils/convertDateFormat";
+import { toast } from "sonner";
 
 
 
-const Stack_Receive_Req_Card = () => {
+const Stack_Receive_Req_Card = ({ data }: { data: Single_Stack_Data }) => {
 
-
+    const [stackDecisionFnc] = useStackReqDecisionMutation()
 
 
     const items: MenuProps['items'] = [
@@ -14,7 +19,7 @@ const Stack_Receive_Req_Card = () => {
             label: `Accept`,
             key: 'accept',
             icon: <FcCheckmark />,
-            style:{color:'green'}
+            style: { color: 'green' }
         },
         {
             label: 'Delete',
@@ -25,10 +30,28 @@ const Stack_Receive_Req_Card = () => {
     ];
 
     const handleMenuClick: MenuProps['onClick'] = async (e) => {
-        if (e.key === 'star') {
-
+        if (e.key === 'accept') {
+            const toastId = toast.loading('Accepting Request...', { position: 'top-center', duration: 2000 });
+            try {
+                const res = await stackDecisionFnc({ status: true, sid: data?._id });
+                console.log(res);
+                if (res.data) {
+                    toast.success("Successfully Accept Code Req !", { position: 'top-center', id: toastId, duration: 2000 });
+                }
+            } catch (err) {
+                toast.error('There is a server side error !', { position: 'top-center', id: toastId, duration: 2000 });
+            }
         } else if (e.key === 'delete') {
-
+            const toastId = toast.loading('Deleting Request...', { position: 'top-center', duration: 2000 });
+            try {
+                const res = await stackDecisionFnc({ status: false, sid: data?._id });
+                console.log(res);
+                if (res.data) {
+                    toast.success("Successfully Delete Code Req !", { position: 'top-center', id: toastId, duration: 2000 });
+                }
+            } catch (err) {
+                toast.error('There is a server side error !', { position: 'top-center', id: toastId, duration: 2000 });
+            }
         }
     };
 
@@ -36,18 +59,6 @@ const Stack_Receive_Req_Card = () => {
         items,
         onClick: handleMenuClick,
     };
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -64,10 +75,10 @@ const Stack_Receive_Req_Card = () => {
                         borderRadius: '50%',
                         objectFit: 'cover',
                     }}
-                    src="../../assets/Profile.jpg"
+                    src={data?.sender_pp ? data?.sender_pp : "../../assets/Profile.jpg"}
                 />
                 <Dropdown menu={menuProps}>
-                    <Button style={{ border: 'none',outline:'none' }}>
+                    <Button style={{ border: 'none', outline: 'none' }}>
                         <Space>
                             actions
                             <DownOutlined />
@@ -75,8 +86,8 @@ const Stack_Receive_Req_Card = () => {
                     </Button>
                 </Dropdown>
             </div>
-            <p style={{marginTop:'.2rem'}}>To : User FUll Name</p>
-            <p>Create Req At : 12 Dec 2024</p>
+            <p style={{ marginTop: '.2rem' }}>From, {data?.sender_name}</p>
+            <p>Create Req At {convertDateFormat(data?.createdAt)}</p>
         </div>
     )
 }

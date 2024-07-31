@@ -37,6 +37,7 @@ const SingleCodePage = () => {
             await updateCodeFnc({ data: { isStar: !data?.code?.isStar }, cid: data?.code?._id })
             await message.success(`Successfully Mark ${data?.code?.isStar ? 'Un-Star' : 'Star'} *!`)
         }else if (e.key === 'delete'){
+            message.loading("Deleting Code ...!")
             await deleteCodeFnc(data?.code?._id);
             navigate('/profile');
             message.success("Successfully Delete a code !");
