@@ -44,9 +44,17 @@ const authApi = baseApi.injectEndpoints({
                 body: data,
                 formData: true
             }),
-            invalidatesTags:['me']
+            invalidatesTags: ['me']
+        }),
+        fogetPassword: builder.mutation({
+            query: (email) => ({
+                url: `/auth/forget`,
+                method: "POST",
+                body:email,
+                formData: true
+            }),
         })
     })
 })
 
-export const { useCreateUserMutation, useLoginUserMutation, useChangePasswordMutation, useUploadProfilePictureMutation } = authApi;
+export const { useCreateUserMutation, useLoginUserMutation, useChangePasswordMutation, useUploadProfilePictureMutation,useFogetPasswordMutation } = authApi;

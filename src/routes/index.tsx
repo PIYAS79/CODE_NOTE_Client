@@ -12,6 +12,8 @@ import SendEmail_Page from "../pages/Others/SendEmail_Page";
 import PrivateRoutes from "../pages/Others/PrivateRoutes";
 import Security_Page from "../pages/Initial_Pages/Security_Page";
 import StackPage from "../pages/Initial_Pages/StackPage";
+import ForgetPassPage from "../pages/Initial_Pages/ForgetPassPage";
+import ResetPassPage from "../pages/Initial_Pages/ResetPassPage";
 
 
 
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
     {
         path: '/login',
         element: <LoginPage />
+    },
+    {
+        path: '/forget',
+        element: <ForgetPassPage />
+    },
+    {
+        path: '/reset',
+        element: <ResetPassPage />
     },
     {
         path: '/signup',

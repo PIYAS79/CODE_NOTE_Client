@@ -22,7 +22,7 @@ const LoginPage = () => {
   };
 
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-    const toastId = toast.loading('Loading.....',{position:'top-center',duration:1000});
+    const toastId = toast.loading('Loading.....', { position: 'top-center', duration: 1000 });
     try {
       // send data to login api route
       const data = await loginUserFnc({
@@ -30,16 +30,16 @@ const LoginPage = () => {
         password: values.password
       }).unwrap();
       if (data.success) {
-        toast.success("Successfully Login User", { id: toastId,position:'top-center'});
+        toast.success("Successfully Login User", { id: toastId, position: 'top-center' });
         // decode token by access token  
         const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
         // set user to redux state
-        dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.user._id,me:null }));
+        dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.user._id, me: null }));
         // after successfully login , then navigate to prifile route
         navigate('/profile');
       }
     } catch (err: any) {
-      toast.error(err.data.errorTitle,{id:toastId,position:'top-center'});
+      toast.error(err.data.errorTitle, { id: toastId, position: 'top-center' });
     }
   };
 
@@ -86,6 +86,7 @@ const LoginPage = () => {
           <Input.Password placeholder='password' style={{ border: '1px solid gray', backgroundColor: 'transparent' }} />
         </Form.Item>
 
+
         <Form.Item<FieldType>
           name="remember"
           valuePropName="checked"
@@ -100,6 +101,7 @@ const LoginPage = () => {
           </Button>
         </Form.Item>
         <p style={{ textAlign: 'center', marginTop: '-1rem' }}>Don't have an account? <Link to={'/signup'}>Create Account</Link></p>
+        <p style={{ textAlign: 'center' }}>Password not remember? <Link to={'/forget'}>Forget Passoword</Link></p>
       </Form>
     </div>
   )

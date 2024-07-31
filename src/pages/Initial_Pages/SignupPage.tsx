@@ -53,7 +53,7 @@ const SignupPage = () => {
           // decode token by access token 
           const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
           // set user to redux state
-          dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.student[0].user }));
+          dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.student[0].user, me: null }));
           // affter successfully login , navigate to profile route
           navigate('/profile');
         }
@@ -81,7 +81,7 @@ const SignupPage = () => {
           // decode token by access token 
           const user = Decode_JWT_Token(data?.data?.AccessToken) as User_Type;
           // set user to redux state
-          dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.teacher[0].user }));
+          dispatch(setUser({ user, token: data.data.AccessToken, _id: data.data.teacher[0].user, me: null }));
           // affter successfully login , navigate to profile route
           navigate('/profile');
         }
@@ -185,7 +185,8 @@ const SignupPage = () => {
               SIGNUP NOW
             </Button>
           </Form.Item>
-          <p style={{ textAlign: 'center', marginTop: '-1rem', marginBottom: '2rem' }}>Already have an account? <Link to={'/login'}>Go Login</Link></p>
+          <p style={{ textAlign: 'center', marginTop: '-1rem' }}>Already have an account? <Link to={'/login'}>Go Login</Link></p>
+          <p style={{ textAlign: 'center', marginBottom: '2rem' }}>Password not remember? <Link to={'/forget'}>Forget Passoword</Link></p>
         </Form>
       </div>
     </div>
