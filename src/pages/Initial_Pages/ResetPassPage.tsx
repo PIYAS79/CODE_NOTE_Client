@@ -27,7 +27,7 @@ const ResetPassPage = () => {
         values.email = email as string;
         const toastId = toast.loading("Analysing your request...", { position: 'top-center' });
         try {
-            const res: any = await fetch('http://localhost:5022/api/v1/auth/reset', {
+            const res: any = await fetch('https://code-note-backend.vercel.app/api/v1/auth/reset', {
                 method: 'PATCH',
                 // credentials: 'include',
                 headers: {

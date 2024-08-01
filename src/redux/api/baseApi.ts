@@ -5,7 +5,7 @@ import { toast } from "sonner";
 
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'http://localhost:5022/api/v1',
+    baseUrl: 'https://code-note-backend.vercel.app/api/v1',
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
         const token = (getState() as RootState).auth.token;
@@ -26,7 +26,7 @@ const customBaseQuery: BaseQueryFn<FetchArgs, BaseQueryApi, DefinitionType> = as
     }
     // if there is any token related issue
     if (res?.error?.status === 401) {
-        const result = await fetch('http://localhost:5022/api/v1/auth/refresh', {
+        const result = await fetch('https://code-note-backend.vercel.app/api/v1/auth/refresh', {
             method: "GET",
             credentials: 'include',
         });
