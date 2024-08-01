@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { DatabaseOutlined, ExclamationCircleOutlined, FieldTimeOutlined, GithubOutlined, HomeOutlined, LinkOutlined, PhoneFilled, SettingOutlined, StarOutlined, StepBackwardOutlined } from '@ant-design/icons';
+import { DatabaseOutlined, FieldTimeOutlined, GithubOutlined, HomeOutlined, LinkOutlined, PhoneFilled, SettingOutlined, StarOutlined } from '@ant-design/icons';
 import { Layout, Image, Button } from 'antd';
 import Web_Header from './Web_Header';
 import { Link, NavLink, Outlet } from 'react-router-dom';
@@ -150,9 +150,9 @@ const Profile_Layout = () => {
                         <div className='navLinks-h'>
                             <NavLink to={'/profile'}><p style={{ color: 'gray', fontSize: '.8rem' }}><HomeOutlined /> Home</p></NavLink>
                             <NavLink to={'/timeline'}><p style={{ color: 'gray', fontSize: '.8rem' }}><FieldTimeOutlined /> Timeline</p></NavLink>
+                            <NavLink to={'/stack'}><p style={{ color: 'gray', fontSize: '.8rem' }}><DatabaseOutlined style={{fontSize:'.9rem'}}/> Stack</p></NavLink>
                             <NavLink to={'/setting'}><p style={{ color: 'gray', fontSize: '.8rem' }}><SettingOutlined /> Setting</p></NavLink>
                             <NavLink to={'/star'}><p style={{ color: 'gray', fontSize: '.8rem' }}><StarOutlined /> Star</p></NavLink>
-                            <NavLink to={'/stack'}><p style={{ color: 'gray', fontSize: '.8rem' }}><DatabaseOutlined style={{fontSize:'.9rem'}}/> Stack</p></NavLink>
                         </div>
                         <Outlet />
                     </Layout>

@@ -1,5 +1,5 @@
 import type { FormProps } from 'antd';
-import { Button, Radio, Select, Form, Input, Alert } from 'antd';
+import { Button, Radio, Select, Form, Input } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { departments } from '../../global/departments';
 import { Create_Faculty_Type, Create_Student_Type } from '../../interfaces/signup.interface';

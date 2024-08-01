@@ -1,8 +1,7 @@
 import { DeleteOutlined, DownOutlined } from "@ant-design/icons"
 import { Button, Dropdown, Image, MenuProps, Space } from "antd"
 import { FcCheckmark } from "react-icons/fc";
-import { useReceiveStackReqQuery, useStackReqDecisionMutation } from "../redux/api/stackApi";
-import { useAppSelector } from "../redux/hooks";
+import { useStackReqDecisionMutation } from "../redux/api/stackApi";
 import { Single_Stack_Data } from "../global/stack.interface";
 import { convertDateFormat } from "../utils/convertDateFormat";
 import { toast } from "sonner";
@@ -34,7 +33,6 @@ const Stack_Receive_Req_Card = ({ data }: { data: Single_Stack_Data }) => {
             const toastId = toast.loading('Accepting Request...', { position: 'top-center', duration: 2000 });
             try {
                 const res = await stackDecisionFnc({ status: true, sid: data?._id });
-                console.log(res);
                 if (res.data) {
                     toast.success("Successfully Accept Code Req !", { position: 'top-center', id: toastId, duration: 2000 });
                 }

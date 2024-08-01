@@ -17,9 +17,9 @@ const Web_Header = () => {
             <div className='navLinks'>
                 <NavLink to={'/profile'}><p style={{color:'gray',fontSize:'1rem'}}><HomeOutlined/> Home</p></NavLink>
                 <NavLink to={'/timeline'}><p style={{color:'gray', fontSize: '1rem' }}><FieldTimeOutlined/> Timeline</p></NavLink>
+                <NavLink to={'/stack'}><p style={{color:'gray',fontSize:'1rem'}}><DatabaseOutlined style={{fontSize:'.9rem'}}/> Stack</p></NavLink>
                 <NavLink to={'/setting'}><p style={{color:'gray',fontSize:'1rem'}}><SettingOutlined/> Setting</p></NavLink>
                 <NavLink to={'/star'}><p style={{color:'gray',fontSize:'1rem'}}><StarOutlined/> Star</p></NavLink>
-                <NavLink to={'/stack'}><p style={{color:'gray',fontSize:'1rem'}}><DatabaseOutlined style={{fontSize:'.9rem'}}/> Stack</p></NavLink>
             </div>
         </Header>
     )
