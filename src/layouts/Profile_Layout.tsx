@@ -48,12 +48,12 @@ const Profile_Layout = () => {
                     style={{ backgroundColor: '#F4EEE2' }}
                     breakpoint="lg"
                     collapsedWidth="0"
-                    onBreakpoint={(broken) => {
+                    onBreakpoint={() => {
                         // console.log(broken);
                     }}
-                    onCollapse={(collapsed, type) => {
-                        const layoutContainer = document.querySelector('.fullRight');
-                        if (collapsed) {
+                    onCollapse={(collapsed) => {
+                        const layoutContainer = document.querySelector('.fullRight') as HTMLElement | null;
+                        if (collapsed && layoutContainer) {
                             layoutContainer!.style.display = 'flex';
                         }
                     }}
@@ -150,7 +150,7 @@ const Profile_Layout = () => {
                         <div className='navLinks-h'>
                             <NavLink to={'/profile'}><p style={{ color: 'gray', fontSize: '.8rem' }}><HomeOutlined /> Home</p></NavLink>
                             <NavLink to={'/timeline'}><p style={{ color: 'gray', fontSize: '.8rem' }}><FieldTimeOutlined /> Timeline</p></NavLink>
-                            <NavLink to={'/stack'}><p style={{ color: 'gray', fontSize: '.8rem' }}><DatabaseOutlined style={{fontSize:'.9rem'}}/> Stack</p></NavLink>
+                            <NavLink to={'/stack'}><p style={{ color: 'gray', fontSize: '.8rem' }}><DatabaseOutlined style={{ fontSize: '.9rem' }} /> Stack</p></NavLink>
                             <NavLink to={'/setting'}><p style={{ color: 'gray', fontSize: '.8rem' }}><SettingOutlined /> Setting</p></NavLink>
                             <NavLink to={'/star'}><p style={{ color: 'gray', fontSize: '.8rem' }}><StarOutlined /> Star</p></NavLink>
                         </div>

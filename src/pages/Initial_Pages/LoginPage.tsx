@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 
 const LoginPage = () => {
 
-  const [loginUserFnc, { error }] = useLoginUserMutation();
+  const [loginUserFnc] = useLoginUserMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

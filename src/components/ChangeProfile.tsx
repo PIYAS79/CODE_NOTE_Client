@@ -42,7 +42,7 @@ const ChangeProfile = () => {
         }
         return e && e.fileList;
     };
-    const beforeUpload = (file: File) => {
+    const beforeUpload = () => {
         // console.log('File chosen:', file);
         // Prevent automatic upload by returning false
         return false;

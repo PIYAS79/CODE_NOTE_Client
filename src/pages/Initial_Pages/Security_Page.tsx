@@ -1,22 +1,8 @@
-import type { FormProps } from 'antd';
-import { Form } from "antd"
 import ChangePassword from '../../components/ChangePassword';
 import ChangeProfile from '../../components/ChangeProfile';
 
 
 const Security_Page = () => {
-
-    const [form] = Form.useForm();
-    type FieldType = {
-        password?: string;
-        email?: string;
-    };
-    const onFinish: FormProps<FieldType>['onFinish'] = (value) => {
-        console.log(value);
-    };
-    const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
 
     return (
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '1rem 0rem' }}>
