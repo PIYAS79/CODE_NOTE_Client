@@ -73,7 +73,7 @@ const Stack_Receive_Req_Card = ({ data }: { data: Single_Stack_Data }) => {
                         borderRadius: '50%',
                         objectFit: 'cover',
                     }}
-                    src={data?.sender_pp ? data?.sender_pp : "../../assets/Profile.jpg"}
+                    src={data?.sender_pp ? data?.sender_pp : "https://res.cloudinary.com/do7nin6oo/image/upload/v1722542959/Profile_iky5vd.jpg"}
                 />
                 <Dropdown menu={menuProps}>
                     <Button style={{ border: 'none', outline: 'none' }}>

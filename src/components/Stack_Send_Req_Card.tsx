@@ -46,7 +46,7 @@ const Stack_Send_Req_Card = ({ data }: { data: Single_Stack_Data }) => {
                         borderRadius: '50%',
                         objectFit: 'cover',
                     }}
-                    src={data?.author_pp ? data?.author_pp : "../../assets/Profile.jpg"}
+                    src={data?.author_pp ? data?.author_pp : "https://res.cloudinary.com/do7nin6oo/image/upload/v1722542959/Profile_iky5vd.jpg"}
                 />
                 {/* <Button className="declineBtn" style={{ border: 'none', background: 'rgb(194, 0, 0)', color: 'white', outline: 'none' }} >
                     Declined

@@ -48,7 +48,7 @@ const AuthorDetails = ({ author, authorPP, cid, cauth }: { author: Code_Author_T
                     borderRadius: '50%',
                     objectFit: 'cover',
                 }}
-                src={authorPP ? authorPP : "../../assets/Profile.jpg"}
+                src={authorPP ? authorPP : "https://res.cloudinary.com/do7nin6oo/image/upload/v1722542959/Profile_iky5vd.jpg"}
             />
 
             <div style={{ margin: '1rem 0rem .5rem 0rem', fontWeight: '600', fontFamily: 'var(--Wittgenstein)' }}>

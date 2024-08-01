@@ -14,7 +14,7 @@ const User_Card = ({ data }: { data: Single_User_Type }) => {
                     borderRadius: '50%',
                     objectFit: 'cover',
                 }}
-                src={data?.user?.profileImage? data?.user?.profileImage:"../../assets/Profile.jpg"}
+                src={data?.user?.profileImage? data?.user?.profileImage:"https://res.cloudinary.com/do7nin6oo/image/upload/v1722542959/Profile_iky5vd.jpg"}
             />
             <div>
                 <span style={{ backgroundColor: 'olive', color: 'white', marginRight: '.3rem', padding: '0rem .5rem', borderRadius: '.2rem' }}>{data.department}</span>

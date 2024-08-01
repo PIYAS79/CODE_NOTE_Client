@@ -40,6 +40,10 @@ const router = createBrowserRouter([
         element: <PrivateRoutes><Profile_Layout /></PrivateRoutes>,
         children: [
             {
+                path: '',
+                element: <ProfilePage />
+            },
+            {
                 path: 'profile',
                 element: <ProfilePage />
             },

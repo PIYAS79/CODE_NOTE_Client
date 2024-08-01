@@ -70,7 +70,7 @@ const Profile_Layout = () => {
                                     borderRadius: '50%',
                                     objectFit: 'cover',
                                 }}
-                                src={me?.user?.profileImage ? me?.user?.profileImage : '../../assets/Profile.jpg'}
+                                src={me?.user?.profileImage ? me?.user?.profileImage : 'https://res.cloudinary.com/do7nin6oo/image/upload/v1722542959/Profile_iky5vd.jpg'}
                             />
                             <img
                                 className="small-float-image"
