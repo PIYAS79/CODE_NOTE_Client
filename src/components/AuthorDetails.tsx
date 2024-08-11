@@ -58,7 +58,7 @@ const AuthorDetails = ({ author, authorPP, cid, cauth }: { author: Code_Author_T
                     <p style={{ backgroundColor: '#782000', fontWeight: '100', color: 'white', padding: '0rem .5rem', borderRadius: '.5rem' }}>faculty</p>
                 }
             </div>
-            <p style={{ fontWeight: '600', fontSize: '1rem' }}>S M {author?.fullName}</p>
+            <p style={{ fontWeight: '600', fontSize: '1rem' }}>{author?.fullName}</p>
             <p style={{ fontWeight: '400', fontFamily: 'var(--Wittgenstein)' }}>
                 {author?.studentId ? `Student ID : ${author?.studentId}` : `Faculty ID : ${author?.teacherId}`}
             </p>
