@@ -33,7 +33,7 @@ const Profile_View_Page = () => {
           :
           <p style={{ backgroundColor: '#782000',margin:'1rem 0rem .5rem 0rem', fontWeight: '100', color: 'white', padding: '0rem .5rem', borderRadius: '.5rem' }}>faculty</p>
         }
-        <p style={{ fontWeight: '600',fontFamily: 'var(--Wittgenstein)' }}>S M {authorDetails?.fullName}</p>
+        <p style={{ fontWeight: '600',fontFamily: 'var(--Wittgenstein)' }}>{authorDetails?.fullName}</p>
         <p style={{ fontWeight: '400' }}>Since : {convertDateFormat(authorDetails?.user?.createdAt)}</p>
         <p style={{ fontWeight: '400' }}>Department : {authorDetails?.department}</p>
         <Link to={'/timeline/email'}>
